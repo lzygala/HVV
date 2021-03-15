@@ -1,0 +1,9 @@
+executable              = run_script.sh
+output                  = output/strips.$(ClusterId).$(ProcId).out
+error                   = error/strips.$(ClusterId).$(ProcId).err
+log                     = log/strips.$(ClusterId).log
+transfer_input_files    = run_script.sh
+RequestCpus		= 4
+
++JobFlavour             = "workday"
+queue 10
