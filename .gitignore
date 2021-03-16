@@ -5,3 +5,10 @@
 EventGeneration/log/*.log
 EventGeneration/error/*.error
 EventGeneration/output/*.output
+
+Analyzers/*.pcm
+Analyzers/*.so
+Analyzers/*.d
+
+Output/*
+!Output/.keep
