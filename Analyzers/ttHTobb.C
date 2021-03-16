@@ -1110,18 +1110,18 @@ void InitHistograms(){
 
     h_CaloMET_phi = new TH1F("h_CaloMET_phi","h_CaloMET_phi", 200, -3.5, 3.5);
     h_CaloMET_pt = new TH1F("h_CaloMET_pt","h_CaloMET_pt", 200, 0, 200);
-    h_CaloMET_sumEt = new TH1F("h_CaloMET_sumEt","h_CaloMET_sumEt", 200, 0, 200);
+    h_CaloMET_sumEt = new TH1F("h_CaloMET_sumEt","h_CaloMET_sumEt", 500, 0, 1000);
 
     h_Electron_eta = new TH1F("h_Electron_eta","h_Electron_eta", 200, -5.0, 5.0);
-    h_Electron_hoe = new TH1F("h_Electron_hoe","h_Electron_hoe", 200, 0, 200);
-    h_Electron_mass = new TH1F("h_Electron_mass","h_Electron_mass", 200, 0, 200);
+    h_Electron_hoe = new TH1F("h_Electron_hoe","h_Electron_hoe", 200, 0, 5.0);
+    h_Electron_mass = new TH1F("h_Electron_mass","h_Electron_mass", 200, 0, 0.15);
     h_Electron_phi = new TH1F("h_Electron_phi","h_Electron_phi", 200, -3.5, 3.5);
     h_Electron_pt = new TH1F("h_Electron_pt","h_Electron_pt", 200, 0, 200);
-    h_Electron_r9 = new TH1F("h_Electron_r9","h_Electron_r9", 200, 0, 200);
-    h_Electron_sieie = new TH1F("h_Electron_sieie","h_Electron_sieie", 200, 0, 200);
+    h_Electron_r9 = new TH1F("h_Electron_r9","h_Electron_r9", 200, 0, 4.0);
+    h_Electron_sieie = new TH1F("h_Electron_sieie","h_Electron_sieie", 200, 0, 0.2);
 
     h_Muon_eta = new TH1F("Muon_eta","Muon_eta", 200, -5.0, 5.0);
-    h_Muon_mass = new TH1F("h_Muon_mass","h_Muon_mass", 200, 0, 200);
+    h_Muon_mass = new TH1F("h_Muon_mass","h_Muon_mass", 200, 0, 0.15);
     h_Muon_phi = new TH1F("h_Muon_phi","h_Muon_phi", 200, -3.5, 3.5);
     h_Muon_pt = new TH1F("h_Muon_pt","h_Muon_pt", 200, 0, 200);
 
@@ -1136,10 +1136,13 @@ void DrawPlot(TH1F* plot, string name){
 
     TCanvas *c1 = new TCanvas("c1","c1",3600,2400);
 
-    string outdir = "./Output/ttHTobb/";
+    string outdir = "../Output/ttHTobb/";
     setOutput(outdir);
 
-    plot->Draw();
+    plot->Scale(1.0 / plot->Integral());
+    plot->SetFillColorAlpha(kGreen + 1,0.35);
+
+    plot->Draw("hist");
     c1->SaveAs((outdir+name+".png").c_str());
     c1->SaveAs((outdir+name+".pdf").c_str());
 }
