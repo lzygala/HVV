@@ -7,6 +7,37 @@
 #include<TTree.h>
 #include<TVector2.h>
 
+#include<TCanvas.h>
+#include<TF1.h>
+#include<TGraph.h>
+#include<TGraphErrors.h>
+#include<TLegend.h>
+#include<TLine.h>
+#include<TH2F.h>
+#include<TPaveText.h>
+#include<TStyle.h>
+
+#include<algorithm>
+#include<chrono>
+#include<ctime>
+#include<fstream>
+#include<iostream>
+#include<mutex>
+#include<string>
+#include<thread>
+#include<vector>
+
+#include<sys/stat.h>
+#include<errno.h>
+
+#ifdef __MAKECINT__ 
+#pragma link C++ class vector<vector<double> >+;  
+#pragma link C++ class vector<Float_t >+; 
+#pragma link C++ class vector<vector<int> >+;  
+#pragma link C++ class vector<vector<bool> >+; 
+#pragma link C++ class vector<vector<map<int,Float_t>> >+; 
+#endif
+
 using namespace std;
 
 /* Variables */
@@ -36,978 +67,978 @@ using namespace std;
 
 
 /* Tree Values */
-    float *run;
-    float *luminosityBlock;
-    float *event;
-    float *CaloMET_phi;
-    float *CaloMET_pt;
-    float *CaloMET_sumEt;
-    float *nElectron;
-    vector<float> *Electron_deltaEtaSC;
-    vector<float> *Electron_dr03EcalRecHitSumEt;
-    vector<float> *Electron_dr03HcalDepth1TowerSumEt;
-    vector<float> *Electron_dr03TkSumPt;
-    vector<float> *Electron_dxy;
-    vector<float> *Electron_dxyErr;
-    vector<float> *Electron_dz;
-    vector<float> *Electron_dzErr;
-    vector<float> *Electron_eCorr;
-    vector<float> *Electron_eInvMinusPInv;
-    vector<float> *Electron_energyErr;
-    vector<float> *Electron_eta;
-    vector<float> *Electron_hoe;
-    vector<float> *Electron_ip3d;
-    vector<float> *Electron_mass;
-    vector<float> *Electron_miniPFRelIso_all;
-    vector<float> *Electron_miniPFRelIso_chg;
-    vector<float> *Electron_mvaSpring16GP;
-    vector<float> *Electron_mvaSpring16HZZ;
-    vector<float> *Electron_pfRelIso03_all;
-    vector<float> *Electron_pfRelIso03_chg;
-    vector<float> *Electron_phi;
-    vector<float> *Electron_pt;
-    vector<float> *Electron_r9;
-    vector<float> *Electron_sieie;
-    vector<float> *Electron_sip3d;
-    vector<float> *Electron_mvaTTH;
-    vector<float> *Electron_charge;
-    vector<float> *Electron_cutBased;
-    vector<float> *Electron_cutBased_HLTPreSel;
-    vector<float> *Electron_jetIdx;
-    vector<float> *Electron_pdgId;
-    vector<float> *Electron_photonIdx;
-    vector<float> *Electron_tightCharge;
-    vector<float> *Electron_vidNestedWPBitmap;
-    vector<float> *Electron_convVeto;
-    vector<float> *Electron_cutBased_HEEP;
-    vector<float> *Electron_isPFcand;
-    vector<float> *Electron_lostHits;
-    vector<float> *Electron_mvaSpring16GP_WP80;
-    vector<float> *Electron_mvaSpring16GP_WP90;
-    vector<float> *Electron_mvaSpring16HZZ_WPL;
-    vector<float> *nFatJet;
-    vector<float> *FatJet_area;
-    vector<float> *FatJet_btagCMVA;
-    vector<float> *FatJet_btagCSVV2;
-    vector<float> *FatJet_btagDeepB;
-    vector<float> *FatJet_btagHbb;
-    vector<float> *FatJet_eta;
-    vector<float> *FatJet_mass;
-    vector<float> *FatJet_msoftdrop;
-    vector<float> *FatJet_msoftdrop_chs;
-    vector<float> *FatJet_n2b1;
-    vector<float> *FatJet_n3b1;
-    vector<float> *FatJet_phi;
-    vector<float> *FatJet_pt;
-    vector<float> *FatJet_tau1;
-    vector<float> *FatJet_tau2;
-    vector<float> *FatJet_tau3;
-    vector<float> *FatJet_tau4;
-    vector<float> *FatJet_jetId;
-    vector<float> *FatJet_subJetIdx1;
-    vector<float> *FatJet_subJetIdx2;
-    vector<float> *nGenJetAK8;
-    vector<float> *GenJetAK8_eta;
-    vector<float> *GenJetAK8_mass;
-    vector<float> *GenJetAK8_phi;
-    vector<float> *GenJetAK8_pt;
-    vector<float> *nGenJet;
-    vector<float> *GenJet_eta;
-    vector<float> *GenJet_mass;
-    vector<float> *GenJet_phi;
-    vector<float> *GenJet_pt;
-    vector<float> *nGenPart;
-    vector<float> *GenPart_eta;
-    vector<float> *GenPart_mass;
-    vector<float> *GenPart_phi;
-    vector<float> *GenPart_pt;
-    vector<float> *GenPart_genPartIdxMother;
-    vector<float> *GenPart_pdgId;
-    vector<float> *GenPart_status;
-    vector<float> *GenPart_statusFlags;
-    vector<float> *Generator_binvar;
-    vector<float> *Generator_scalePDF;
-    vector<float> *Generator_weight;
-    vector<float> *Generator_x1;
-    vector<float> *Generator_x2;
-    vector<float> *Generator_xpdf1;
-    vector<float> *Generator_xpdf2;
-    vector<float> *Generator_id1;
-    vector<float> *Generator_id2;
-    vector<float> *nGenVisTau;
-    vector<float> *GenVisTau_eta;
-    vector<float> *GenVisTau_mass;
-    vector<float> *GenVisTau_phi;
-    vector<float> *GenVisTau_pt;
-    vector<float> *GenVisTau_charge;
-    vector<float> *GenVisTau_genPartIdxMother;
-    vector<float> *GenVisTau_status;
-    vector<float> *genWeight;
-    vector<float> *LHEWeight_originalXWGTUP;
-    vector<float> *nLHEPdfWeight;
-    vector<float> *LHEPdfWeight;
-    vector<float> *nLHEScaleWeight;
-    vector<float> *LHEScaleWeight;
-    int *nJet;
-    vector<float> *Jet_area;
-    vector<float> *Jet_btagCMVA;
-    vector<float> *Jet_btagCSVV2;
-    vector<float> *Jet_btagDeepB;
-    vector<float> *Jet_btagDeepC;
-    vector<float> *Jet_chEmEF;
-    vector<float> *Jet_chHEF;
-    vector<float> *Jet_eta;
-    vector<float> *Jet_mass;
-    vector<float> *Jet_neEmEF;
-    vector<float> *Jet_neHEF;
-    vector<float> *Jet_phi;
-    vector<float> *Jet_pt;
-    vector<float> *Jet_qgl;
-    vector<float> *Jet_rawFactor;
-    vector<float> *Jet_bReg;
-    vector<float> *Jet_electronIdx1;
-    vector<float> *Jet_electronIdx2;
-    vector<float> *Jet_jetId;
-    vector<float> *Jet_muonIdx1;
-    vector<float> *Jet_muonIdx2;
-    vector<float> *Jet_nConstituents;
-    vector<float> *Jet_nElectrons;
-    vector<float> *Jet_nMuons;
-    vector<float> *Jet_puId;
-    vector<float> *LHE_HT;
-    vector<float> *LHE_HTIncoming;
-    vector<float> *LHE_Vpt;
-    vector<float> *LHE_Njets;
-    vector<float> *LHE_Nb;
-    vector<float> *LHE_Nc;
-    vector<float> *LHE_Nuds;
-    vector<float> *LHE_Nglu;
-    vector<float> *LHE_NpNLO;
-    vector<float> *LHE_NpLO;
-    vector<float> *GenMET_phi;
-    vector<float> *GenMET_pt;
-    vector<float> *MET_MetUnclustEnUpDeltaX;
-    vector<float> *MET_MetUnclustEnUpDeltaY;
-    vector<float> *MET_covXX;
-    vector<float> *MET_covXY;
-    vector<float> *MET_covYY;
-    vector<float> *MET_phi;
-    vector<float> *MET_pt;
-    vector<float> *MET_significance;
-    vector<float> *MET_sumEt;
-    int *nMuon;
-    vector<float> *Muon_dxy;
-    vector<float> *Muon_dxyErr;
-    vector<float> *Muon_dz;
-    vector<float> *Muon_dzErr;
-    vector<float> *Muon_eta;
-    vector<float> *Muon_ip3d;
-    vector<float> *Muon_mass;
-    vector<float> *Muon_miniPFRelIso_all;
-    vector<float> *Muon_miniPFRelIso_chg;
-    vector<float> *Muon_pfRelIso03_all;
-    vector<float> *Muon_pfRelIso03_chg;
-    vector<float> *Muon_pfRelIso04_all;
-    vector<float> *Muon_phi;
-    vector<float> *Muon_pt;
-    vector<float> *Muon_ptErr;
-    vector<float> *Muon_segmentComp;
-    vector<float> *Muon_sip3d;
-    vector<float> *Muon_mvaTTH;
-    vector<float> *Muon_charge;
-    vector<float> *Muon_jetIdx;
-    vector<float> *Muon_nStations;
-    vector<float> *Muon_nTrackerLayers;
-    vector<float> *Muon_pdgId;
-    vector<float> *Muon_tightCharge;
-    vector<float> *Muon_highPtId;
-    vector<float> *Muon_isPFcand;
-    vector<float> *Muon_mediumId;
-    vector<float> *Muon_softId;
-    vector<float> *Muon_tightId;
-    vector<float> *nPhoton;
-    vector<float> *Photon_eCorr;
-    vector<float> *Photon_energyErr;
-    vector<float> *Photon_eta;
-    vector<float> *Photon_hoe;
-    vector<float> *Photon_mass;
-    vector<float> *Photon_mvaID;
-    vector<float> *Photon_pfRelIso03_all;
-    vector<float> *Photon_pfRelIso03_chg;
-    vector<float> *Photon_phi;
-    vector<float> *Photon_pt;
-    vector<float> *Photon_r9;
-    vector<float> *Photon_sieie;
-    vector<float> *Photon_charge;
-    vector<float> *Photon_cutBased;
-    vector<float> *Photon_electronIdx;
-    vector<float> *Photon_jetIdx;
-    vector<float> *Photon_pdgId;
-    vector<float> *Photon_vidNestedWPBitmap;
-    vector<float> *Photon_electronVeto;
-    vector<float> *Photon_mvaID_WP80;
-    vector<float> *Photon_mvaID_WP90;
-    vector<float> *Photon_pixelSeed;
-    vector<float> *Pileup_nTrueInt;
-    vector<float> *Pileup_nPU;
-    vector<float> *Pileup_sumEOOT;
-    vector<float> *Pileup_sumLOOT;
-    vector<float> *PuppiMET_phi;
-    vector<float> *PuppiMET_pt;
-    vector<float> *PuppiMET_sumEt;
-    vector<float> *RawMET_phi;
-    vector<float> *RawMET_pt;
-    vector<float> *RawMET_sumEt;
-    vector<float> *fixedGridRhoFastjetAll;
-    vector<float> *fixedGridRhoFastjetCentralCalo;
-    vector<float> *fixedGridRhoFastjetCentralNeutral;
-    vector<float> *nGenDressedLepton;
-    vector<float> *GenDressedLepton_eta;
-    vector<float> *GenDressedLepton_mass;
-    vector<float> *GenDressedLepton_phi;
-    vector<float> *GenDressedLepton_pt;
-    vector<float> *GenDressedLepton_pdgId;
-    vector<float> *nSoftActivityJet;
-    vector<float> *SoftActivityJet_eta;
-    vector<float> *SoftActivityJet_phi;
-    vector<float> *SoftActivityJet_pt;
-    vector<float> *SoftActivityJetHT;
-    vector<float> *SoftActivityJetHT10;
-    vector<float> *SoftActivityJetHT2;
-    vector<float> *SoftActivityJetHT5;
-    vector<float> *SoftActivityJetNjets10;
-    vector<float> *SoftActivityJetNjets2;
-    vector<float> *SoftActivityJetNjets5;
-    vector<float> *nSubJet;
-    vector<float> *SubJet_btagCMVA;
-    vector<float> *SubJet_btagCSVV2;
-    vector<float> *SubJet_btagDeepB;
-    vector<float> *SubJet_eta;
-    vector<float> *SubJet_mass;
-    vector<float> *SubJet_n2b1;
-    vector<float> *SubJet_n3b1;
-    vector<float> *SubJet_phi;
-    vector<float> *SubJet_pt;
-    vector<float> *SubJet_tau1;
-    vector<float> *SubJet_tau2;
-    vector<float> *SubJet_tau3;
-    vector<float> *SubJet_tau4;
-    vector<float> *nTau;
-    vector<float> *Tau_chargedIso;
-    vector<float> *Tau_dxy;
-    vector<float> *Tau_dz;
-    vector<float> *Tau_eta;
-    vector<float> *Tau_footprintCorr;
-    vector<float> *Tau_leadTkDeltaEta;
-    vector<float> *Tau_leadTkDeltaPhi;
-    vector<float> *Tau_leadTkPtOverTauPt;
-    vector<float> *Tau_mass;
-    vector<float> *Tau_neutralIso;
-    vector<float> *Tau_phi;
-    vector<float> *Tau_photonsOutsideSignalCone;
-    vector<float> *Tau_pt;
-    vector<float> *Tau_puCorr;
-    vector<float> *Tau_rawAntiEle;
-    vector<float> *Tau_rawIso;
-    vector<float> *Tau_rawMVAnewDM;
-    vector<float> *Tau_rawMVAoldDM;
-    vector<float> *Tau_rawMVAoldDMdR03;
-    vector<float> *Tau_charge;
-    vector<float> *Tau_decayMode;
-    vector<float> *Tau_jetIdx;
-    vector<float> *Tau_rawAntiEleCat;
-    vector<float> *Tau_idAntiEle;
-    vector<float> *Tau_idAntiMu;
-    vector<float> *Tau_idDecayMode;
-    vector<float> *Tau_idDecayModeNewDMs;
-    vector<float> *Tau_idMVAnewDM;
-    vector<float> *Tau_idMVAoldDM;
-    vector<float> *Tau_idMVAoldDMdR03;
-    vector<float> *TkMET_phi;
-    vector<float> *TkMET_pt;
-    vector<float> *TkMET_sumEt;
-    vector<float> *nTrigObj;
-    vector<float> *TrigObj_pt;
-    vector<float> *TrigObj_eta;
-    vector<float> *TrigObj_phi;
-    vector<float> *TrigObj_l1pt;
-    vector<float> *TrigObj_l1pt_2;
-    vector<float> *TrigObj_l2pt;
-    vector<float> *TrigObj_id;
-    vector<float> *TrigObj_l1iso;
-    vector<float> *TrigObj_l1charge;
-    vector<float> *TrigObj_filterBits;
-    vector<float> *genTtbarId;
-    vector<float> *nOtherPV;
-    vector<float> *OtherPV_z;
-    vector<float> *PV_ndof;
-    vector<float> *PV_x;
-    vector<float> *PV_y;
-    vector<float> *PV_z;
-    vector<float> *PV_chi2;
-    vector<float> *PV_score;
-    vector<float> *PV_npvs;
-    vector<float> *PV_npvsGood;
-    vector<float> *nSV;
-    vector<float> *SV_dlen;
-    vector<float> *SV_dlenSig;
-    vector<float> *SV_pAngle;
-    vector<float> *Electron_genPartIdx;
-    vector<float> *Electron_genPartFlav;
-    vector<float> *GenJetAK8_partonFlavour;
-    vector<float> *GenJetAK8_hadronFlavour;
-    vector<float> *GenJet_partonFlavour;
-    vector<float> *GenJet_hadronFlavour;
-    vector<float> *Jet_genJetIdx;
-    vector<float> *Jet_hadronFlavour;
-    vector<float> *Jet_partonFlavour;
-    vector<float> *Muon_genPartIdx;
-    vector<float> *Muon_genPartFlav;
-    vector<float> *Photon_genPartIdx;
-    vector<float> *Photon_genPartFlav;
-    vector<float> *MET_fiducialGenPhi;
-    vector<float> *MET_fiducialGenPt;
-    vector<float> *Electron_cleanmask;
-    vector<float> *Jet_cleanmask;
-    vector<float> *Muon_cleanmask;
-    vector<float> *Photon_cleanmask;
-    vector<float> *Tau_cleanmask;
-    vector<float> *SV_chi2;
-    vector<float> *SV_eta;
-    vector<float> *SV_mass;
-    vector<float> *SV_ndof;
-    vector<float> *SV_phi;
-    vector<float> *SV_pt;
-    vector<float> *SV_x;
-    vector<float> *SV_y;
-    vector<float> *SV_z;
-    vector<float> *Tau_genPartIdx;
-    vector<float> *Tau_genPartFlav;
-    vector<float> *L1simulation_step;
-    vector<float> *HLTriggerFirstPath;
-    vector<float> *HLT_AK8PFJet360_TrimMass30;
-    vector<float> *HLT_AK8PFJet400_TrimMass30;
-    vector<float> *HLT_AK8PFHT750_TrimMass50;
-    vector<float> *HLT_AK8PFHT800_TrimMass50;
-    vector<float> *HLT_AK8DiPFJet300_200_TrimMass30_BTagCSV_p20;
-    vector<float> *HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p087;
-    vector<float> *HLT_AK8DiPFJet300_200_TrimMass30_BTagCSV_p087;
-    vector<float> *HLT_AK8DiPFJet300_200_TrimMass30;
-    vector<float> *HLT_AK8PFHT700_TrimR0p1PT0p03Mass50;
-    vector<float> *HLT_AK8PFHT650_TrimR0p1PT0p03Mass50;
-    vector<float> *HLT_AK8PFHT600_TrimR0p1PT0p03Mass50_BTagCSV_p20;
-    vector<float> *HLT_AK8DiPFJet280_200_TrimMass30;
-    vector<float> *HLT_AK8DiPFJet250_200_TrimMass30;
-    vector<float> *HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20;
-    vector<float> *HLT_AK8DiPFJet250_200_TrimMass30_BTagCSV_p20;
-    vector<float> *HLT_CaloJet260;
-    vector<float> *HLT_CaloJet500_NoJetID;
-    vector<float> *HLT_Dimuon13_PsiPrime;
-    vector<float> *HLT_Dimuon13_Upsilon;
-    vector<float> *HLT_Dimuon20_Jpsi;
-    vector<float> *HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf;
-    vector<float> *HLT_DoubleEle25_CaloIdL_GsfTrkIdVL;
-    vector<float> *HLT_DoubleEle33_CaloIdL;
-    vector<float> *HLT_DoubleEle33_CaloIdL_MW;
-    vector<float> *HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW;
-    vector<float> *HLT_DoubleEle33_CaloIdL_GsfTrkIdVL;
-    vector<float> *HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg;
-    vector<float> *HLT_DoubleTightCombinedIsoPFTau35_Trk1_eta2p1_Reg;
-    vector<float> *HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1_Reg;
-    vector<float> *HLT_DoubleTightCombinedIsoPFTau40_Trk1_eta2p1_Reg;
-    vector<float> *HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1;
-    vector<float> *HLT_DoubleTightCombinedIsoPFTau40_Trk1_eta2p1;
-    vector<float> *HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg;
-    vector<float> *HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg;
-    vector<float> *HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1;
-    vector<float> *HLT_DoubleEle37_Ele27_CaloIdL_GsfTrkIdVL;
-    vector<float> *HLT_DoubleMu33NoFiltersNoVtx;
-    vector<float> *HLT_DoubleMu38NoFiltersNoVtx;
-    vector<float> *HLT_DoubleMu23NoFiltersNoVtxDisplaced;
-    vector<float> *HLT_DoubleMu28NoFiltersNoVtxDisplaced;
-    vector<float> *HLT_DoubleMu0;
-    vector<float> *HLT_DoubleMu4_3_Bs;
-    vector<float> *HLT_DoubleMu4_3_Jpsi_Displaced;
-    vector<float> *HLT_DoubleMu4_JpsiTrk_Displaced;
-    vector<float> *HLT_DoubleMu4_LowMassNonResonantTrk_Displaced;
-    vector<float> *HLT_DoubleMu3_Trk_Tau3mu;
-    vector<float> *HLT_DoubleMu4_PsiPrimeTrk_Displaced;
-    vector<float> *HLT_Mu7p5_L2Mu2_Jpsi;
-    vector<float> *HLT_Mu7p5_L2Mu2_Upsilon;
-    vector<float> *HLT_Mu7p5_Track2_Jpsi;
-    vector<float> *HLT_Mu7p5_Track3p5_Jpsi;
-    vector<float> *HLT_Mu7p5_Track7_Jpsi;
-    vector<float> *HLT_Mu7p5_Track2_Upsilon;
-    vector<float> *HLT_Mu7p5_Track3p5_Upsilon;
-    vector<float> *HLT_Mu7p5_Track7_Upsilon;
-    vector<float> *HLT_Dimuon0er16_Jpsi_NoOS_NoVertexing;
-    vector<float> *HLT_Dimuon0er16_Jpsi_NoVertexing;
-    vector<float> *HLT_Dimuon6_Jpsi_NoVertexing;
-    vector<float> *HLT_Photon150;
-    vector<float> *HLT_Photon90_CaloIdL_HT300;
-    vector<float> *HLT_HT250_CaloMET70;
-    vector<float> *HLT_DoublePhoton60;
-    vector<float> *HLT_DoublePhoton85;
-    vector<float> *HLT_Ele17_Ele8_Gsf;
-    vector<float> *HLT_Ele20_eta2p1_WPLoose_Gsf_LooseIsoPFTau28;
-    vector<float> *HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau29;
-    vector<float> *HLT_Ele22_eta2p1_WPLoose_Gsf;
-    vector<float> *HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
-    vector<float> *HLT_Ele23_WPLoose_Gsf;
-    vector<float> *HLT_Ele23_WPLoose_Gsf_WHbbBoost;
-    vector<float> *HLT_Ele24_eta2p1_WPLoose_Gsf;
-    vector<float> *HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20;
-    vector<float> *HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
-    vector<float> *HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30;
-    vector<float> *HLT_Ele25_WPTight_Gsf;
-    vector<float> *HLT_Ele25_eta2p1_WPLoose_Gsf;
-    vector<float> *HLT_Ele25_eta2p1_WPTight_Gsf;
-    vector<float> *HLT_Ele27_WPLoose_Gsf;
-    vector<float> *HLT_Ele27_WPLoose_Gsf_WHbbBoost;
-    vector<float> *HLT_Ele27_WPTight_Gsf;
-    vector<float> *HLT_Ele27_WPTight_Gsf_L1JetTauSeeded;
-    vector<float> *HLT_Ele27_eta2p1_WPLoose_Gsf;
-    vector<float> *HLT_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
-    vector<float> *HLT_Ele27_eta2p1_WPTight_Gsf;
-    vector<float> *HLT_Ele30_WPTight_Gsf;
-    vector<float> *HLT_Ele30_eta2p1_WPLoose_Gsf;
-    vector<float> *HLT_Ele30_eta2p1_WPTight_Gsf;
-    vector<float> *HLT_Ele32_WPTight_Gsf;
-    vector<float> *HLT_Ele32_eta2p1_WPLoose_Gsf;
-    vector<float> *HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
-    vector<float> *HLT_Ele32_eta2p1_WPTight_Gsf;
-    vector<float> *HLT_Ele35_WPLoose_Gsf;
-    vector<float> *HLT_Ele35_CaloIdVT_GsfTrkIdT_PFJet150_PFJet50;
-    vector<float> *HLT_Ele36_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
-    vector<float> *HLT_Ele45_WPLoose_Gsf;
-    vector<float> *HLT_Ele45_WPLoose_Gsf_L1JetTauSeeded;
-    vector<float> *HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50;
-    vector<float> *HLT_Ele105_CaloIdVT_GsfTrkIdT;
-    vector<float> *HLT_Ele30WP60_SC4_Mass55;
-    vector<float> *HLT_Ele30WP60_Ele8_Mass55;
-    vector<float> *HLT_HT200;
-    vector<float> *HLT_HT275;
-    vector<float> *HLT_HT325;
-    vector<float> *HLT_HT425;
-    vector<float> *HLT_HT575;
-    vector<float> *HLT_HT410to430;
-    vector<float> *HLT_HT430to450;
-    vector<float> *HLT_HT450to470;
-    vector<float> *HLT_HT470to500;
-    vector<float> *HLT_HT500to550;
-    vector<float> *HLT_HT550to650;
-    vector<float> *HLT_HT650;
-    vector<float> *HLT_Mu16_eta2p1_MET30;
-    vector<float> *HLT_IsoMu16_eta2p1_MET30;
-    vector<float> *HLT_IsoMu16_eta2p1_MET30_LooseIsoPFTau50_Trk30_eta2p1;
-    vector<float> *HLT_IsoMu17_eta2p1;
-    vector<float> *HLT_IsoMu17_eta2p1_LooseIsoPFTau20;
-    vector<float> *HLT_IsoMu17_eta2p1_LooseIsoPFTau20_SingleL1;
-    vector<float> *HLT_DoubleIsoMu17_eta2p1;
-    vector<float> *HLT_DoubleIsoMu17_eta2p1_noDzCut;
-    vector<float> *HLT_IsoMu18;
-    vector<float> *HLT_IsoMu19_eta2p1_LooseIsoPFTau20;
-    vector<float> *HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1;
-    vector<float> *HLT_IsoMu19_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg;
-    vector<float> *HLT_IsoMu19_eta2p1_LooseCombinedIsoPFTau20;
-    vector<float> *HLT_IsoMu19_eta2p1_MediumCombinedIsoPFTau32_Trk1_eta2p1_Reg;
-    vector<float> *HLT_IsoMu19_eta2p1_TightCombinedIsoPFTau32_Trk1_eta2p1_Reg;
-    vector<float> *HLT_IsoMu21_eta2p1_MediumCombinedIsoPFTau32_Trk1_eta2p1_Reg;
-    vector<float> *HLT_IsoMu21_eta2p1_TightCombinedIsoPFTau32_Trk1_eta2p1_Reg;
-    vector<float> *HLT_IsoMu20;
-    vector<float> *HLT_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1;
-    vector<float> *HLT_IsoMu21_eta2p1_LooseIsoPFTau50_Trk30_eta2p1_SingleL1;
-    vector<float> *HLT_IsoMu21_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg;
-    vector<float> *HLT_IsoMu22;
-    vector<float> *HLT_IsoMu22_eta2p1;
-    vector<float> *HLT_IsoMu24;
-    vector<float> *HLT_IsoMu27;
-    vector<float> *HLT_IsoTkMu18;
-    vector<float> *HLT_IsoTkMu20;
-    vector<float> *HLT_IsoTkMu22;
-    vector<float> *HLT_IsoTkMu22_eta2p1;
-    vector<float> *HLT_IsoTkMu24;
-    vector<float> *HLT_IsoTkMu27;
-    vector<float> *HLT_JetE30_NoBPTX3BX;
-    vector<float> *HLT_JetE30_NoBPTX;
-    vector<float> *HLT_JetE50_NoBPTX3BX;
-    vector<float> *HLT_JetE70_NoBPTX3BX;
-    vector<float> *HLT_L1SingleMu18;
-    vector<float> *HLT_L2Mu10;
-    vector<float> *HLT_L1SingleMuOpen;
-    vector<float> *HLT_L1SingleMuOpen_DT;
-    vector<float> *HLT_L2DoubleMu23_NoVertex;
-    vector<float> *HLT_L2DoubleMu28_NoVertex_2Cha_Angle2p5_Mass10;
-    vector<float> *HLT_L2DoubleMu38_NoVertex_2Cha_Angle2p5_Mass10;
-    vector<float> *HLT_L2Mu10_NoVertex_NoBPTX3BX;
-    vector<float> *HLT_L2Mu10_NoVertex_NoBPTX;
-    vector<float> *HLT_L2Mu45_NoVertex_3Sta_NoBPTX3BX;
-    vector<float> *HLT_L2Mu40_NoVertex_3Sta_NoBPTX3BX;
-    vector<float> *HLT_LooseIsoPFTau50_Trk30_eta2p1;
-    vector<float> *HLT_LooseIsoPFTau50_Trk30_eta2p1_MET80;
-    vector<float> *HLT_LooseIsoPFTau50_Trk30_eta2p1_MET90;
-    vector<float> *HLT_LooseIsoPFTau50_Trk30_eta2p1_MET110;
-    vector<float> *HLT_LooseIsoPFTau50_Trk30_eta2p1_MET120;
-    vector<float> *HLT_PFTau120_eta2p1;
-    vector<float> *HLT_PFTau140_eta2p1;
-    vector<float> *HLT_VLooseIsoPFTau120_Trk50_eta2p1;
-    vector<float> *HLT_VLooseIsoPFTau140_Trk50_eta2p1;
-    vector<float> *HLT_Mu17_Mu8;
-    vector<float> *HLT_Mu17_Mu8_DZ;
-    vector<float> *HLT_Mu17_Mu8_SameSign;
-    vector<float> *HLT_Mu17_Mu8_SameSign_DZ;
-    vector<float> *HLT_Mu20_Mu10;
-    vector<float> *HLT_Mu20_Mu10_DZ;
-    vector<float> *HLT_Mu20_Mu10_SameSign;
-    vector<float> *HLT_Mu20_Mu10_SameSign_DZ;
-    vector<float> *HLT_Mu17_TkMu8_DZ;
-    vector<float> *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL;
-    vector<float> *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ;
-    vector<float> *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL;
-    vector<float> *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ;
-    vector<float> *HLT_Mu25_TkMu0_dEta18_Onia;
-    vector<float> *HLT_Mu27_TkMu8;
-    vector<float> *HLT_Mu30_TkMu11;
-    vector<float> *HLT_Mu30_eta2p1_PFJet150_PFJet50;
-    vector<float> *HLT_Mu40_TkMu11;
-    vector<float> *HLT_Mu40_eta2p1_PFJet200_PFJet50;
-    vector<float> *HLT_Mu20;
-    vector<float> *HLT_TkMu17;
-    vector<float> *HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL;
-    vector<float> *HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ;
-    vector<float> *HLT_TkMu20;
-    vector<float> *HLT_Mu24_eta2p1;
-    vector<float> *HLT_TkMu24_eta2p1;
-    vector<float> *HLT_Mu27;
-    vector<float> *HLT_TkMu27;
-    vector<float> *HLT_Mu45_eta2p1;
-    vector<float> *HLT_Mu50;
-    vector<float> *HLT_TkMu50;
-    vector<float> *HLT_Mu38NoFiltersNoVtx_Photon38_CaloIdL;
-    vector<float> *HLT_Mu42NoFiltersNoVtx_Photon42_CaloIdL;
-    vector<float> *HLT_Mu28NoFiltersNoVtxDisplaced_Photon28_CaloIdL;
-    vector<float> *HLT_Mu33NoFiltersNoVtxDisplaced_Photon33_CaloIdL;
-    vector<float> *HLT_Mu23NoFiltersNoVtx_Photon23_CaloIdL;
-    vector<float> *HLT_DoubleMu18NoFiltersNoVtx;
-    vector<float> *HLT_Mu33NoFiltersNoVtxDisplaced_DisplacedJet50_Tight;
-    vector<float> *HLT_Mu33NoFiltersNoVtxDisplaced_DisplacedJet50_Loose;
-    vector<float> *HLT_Mu28NoFiltersNoVtx_DisplacedJet40_Loose;
-    vector<float> *HLT_Mu38NoFiltersNoVtxDisplaced_DisplacedJet60_Tight;
-    vector<float> *HLT_Mu38NoFiltersNoVtxDisplaced_DisplacedJet60_Loose;
-    vector<float> *HLT_Mu38NoFiltersNoVtx_DisplacedJet60_Loose;
-    vector<float> *HLT_Mu28NoFiltersNoVtx_CentralCaloJet40;
-    vector<float> *HLT_PFHT300_PFMET100;
-    vector<float> *HLT_PFHT300_PFMET110;
-    vector<float> *HLT_PFHT550_4JetPt50;
-    vector<float> *HLT_PFHT650_4JetPt50;
-    vector<float> *HLT_PFHT750_4JetPt50;
-    vector<float> *HLT_PFHT750_4JetPt70;
-    vector<float> *HLT_PFHT750_4JetPt80;
-    vector<float> *HLT_PFHT800_4JetPt50;
-    vector<float> *HLT_PFHT850_4JetPt50;
-    vector<float> *HLT_PFJet15_NoCaloMatched;
-    vector<float> *HLT_PFJet25_NoCaloMatched;
-    vector<float> *HLT_DiPFJet15_NoCaloMatched;
-    vector<float> *HLT_DiPFJet25_NoCaloMatched;
-    vector<float> *HLT_DiPFJet15_FBEta3_NoCaloMatched;
-    vector<float> *HLT_DiPFJet25_FBEta3_NoCaloMatched;
-    vector<float> *HLT_DiPFJetAve15_HFJEC;
-    vector<float> *HLT_DiPFJetAve25_HFJEC;
-    vector<float> *HLT_DiPFJetAve35_HFJEC;
-    vector<float> *HLT_AK8PFJet40;
-    vector<float> *HLT_AK8PFJet60;
-    vector<float> *HLT_AK8PFJet80;
-    vector<float> *HLT_AK8PFJet140;
-    vector<float> *HLT_AK8PFJet200;
-    vector<float> *HLT_AK8PFJet260;
-    vector<float> *HLT_AK8PFJet320;
-    vector<float> *HLT_AK8PFJet400;
-    vector<float> *HLT_AK8PFJet450;
-    vector<float> *HLT_AK8PFJet500;
-    vector<float> *HLT_PFJet40;
-    vector<float> *HLT_PFJet60;
-    vector<float> *HLT_PFJet80;
-    vector<float> *HLT_PFJet140;
-    vector<float> *HLT_PFJet200;
-    vector<float> *HLT_PFJet260;
-    vector<float> *HLT_PFJet320;
-    vector<float> *HLT_PFJet400;
-    vector<float> *HLT_PFJet450;
-    vector<float> *HLT_PFJet500;
-    vector<float> *HLT_DiPFJetAve40;
-    vector<float> *HLT_DiPFJetAve60;
-    vector<float> *HLT_DiPFJetAve80;
-    vector<float> *HLT_DiPFJetAve140;
-    vector<float> *HLT_DiPFJetAve200;
-    vector<float> *HLT_DiPFJetAve260;
-    vector<float> *HLT_DiPFJetAve320;
-    vector<float> *HLT_DiPFJetAve400;
-    vector<float> *HLT_DiPFJetAve500;
-    vector<float> *HLT_DiPFJetAve60_HFJEC;
-    vector<float> *HLT_DiPFJetAve80_HFJEC;
-    vector<float> *HLT_DiPFJetAve100_HFJEC;
-    vector<float> *HLT_DiPFJetAve160_HFJEC;
-    vector<float> *HLT_DiPFJetAve220_HFJEC;
-    vector<float> *HLT_DiPFJetAve300_HFJEC;
-    vector<float> *HLT_DiPFJet40_DEta3p5_MJJ600_PFMETNoMu140;
-    vector<float> *HLT_DiPFJet40_DEta3p5_MJJ600_PFMETNoMu80;
-    vector<float> *HLT_DiCentralPFJet170;
-    vector<float> *HLT_SingleCentralPFJet170_CFMax0p1;
-    vector<float> *HLT_DiCentralPFJet170_CFMax0p1;
-    vector<float> *HLT_DiCentralPFJet220_CFMax0p3;
-    vector<float> *HLT_DiCentralPFJet330_CFMax0p5;
-    vector<float> *HLT_DiCentralPFJet430;
-    vector<float> *HLT_PFHT125;
-    vector<float> *HLT_PFHT200;
-    vector<float> *HLT_PFHT250;
-    vector<float> *HLT_PFHT300;
-    vector<float> *HLT_PFHT350;
-    vector<float> *HLT_PFHT400;
-    vector<float> *HLT_PFHT475;
-    vector<float> *HLT_PFHT600;
-    vector<float> *HLT_PFHT650;
-    vector<float> *HLT_PFHT800;
-    vector<float> *HLT_PFHT900;
-    vector<float> *HLT_PFHT200_PFAlphaT0p51;
-    vector<float> *HLT_PFHT200_DiPFJetAve90_PFAlphaT0p57;
-    vector<float> *HLT_PFHT200_DiPFJetAve90_PFAlphaT0p63;
-    vector<float> *HLT_PFHT250_DiPFJetAve90_PFAlphaT0p55;
-    vector<float> *HLT_PFHT250_DiPFJetAve90_PFAlphaT0p58;
-    vector<float> *HLT_PFHT300_DiPFJetAve90_PFAlphaT0p53;
-    vector<float> *HLT_PFHT300_DiPFJetAve90_PFAlphaT0p54;
-    vector<float> *HLT_PFHT350_DiPFJetAve90_PFAlphaT0p52;
-    vector<float> *HLT_PFHT350_DiPFJetAve90_PFAlphaT0p53;
-    vector<float> *HLT_PFHT400_DiPFJetAve90_PFAlphaT0p51;
-    vector<float> *HLT_PFHT400_DiPFJetAve90_PFAlphaT0p52;
-    vector<float> *HLT_MET60_IsoTrk35_Loose;
-    vector<float> *HLT_MET75_IsoTrk50;
-    vector<float> *HLT_MET90_IsoTrk50;
-    vector<float> *HLT_PFMET120_BTagCSV_p067;
-    vector<float> *HLT_PFMET120_Mu5;
-    vector<float> *HLT_PFMET170_NotCleaned;
-    vector<float> *HLT_PFMET170_NoiseCleaned;
-    vector<float> *HLT_PFMET170_HBHECleaned;
-    vector<float> *HLT_PFMET170_JetIdCleaned;
-    vector<float> *HLT_PFMET170_BeamHaloCleaned;
-    vector<float> *HLT_PFMET170_HBHE_BeamHaloCleaned;
-    vector<float> *HLT_PFMETTypeOne190_HBHE_BeamHaloCleaned;
-    vector<float> *HLT_PFMET90_PFMHT90_IDTight;
-    vector<float> *HLT_PFMET100_PFMHT100_IDTight;
-    vector<float> *HLT_PFMET100_PFMHT100_IDTight_BeamHaloCleaned;
-    vector<float> *HLT_PFMET110_PFMHT110_IDTight;
-    vector<float> *HLT_PFMET120_PFMHT120_IDTight;
-    vector<float> *HLT_CaloMHTNoPU90_PFMET90_PFMHT90_IDTight_BTagCSV_p067;
-    vector<float> *HLT_CaloMHTNoPU90_PFMET90_PFMHT90_IDTight;
-    vector<float> *HLT_QuadPFJet_BTagCSV_p016_p11_VBF_Mqq200;
-    vector<float> *HLT_QuadPFJet_BTagCSV_p016_VBF_Mqq460;
-    vector<float> *HLT_QuadPFJet_BTagCSV_p016_p11_VBF_Mqq240;
-    vector<float> *HLT_QuadPFJet_BTagCSV_p016_VBF_Mqq500;
-    vector<float> *HLT_QuadPFJet_VBF;
-    vector<float> *HLT_L1_TripleJet_VBF;
-    vector<float> *HLT_QuadJet45_TripleBTagCSV_p087;
-    vector<float> *HLT_QuadJet45_DoubleBTagCSV_p087;
-    vector<float> *HLT_DoubleJet90_Double30_TripleBTagCSV_p087;
-    vector<float> *HLT_DoubleJet90_Double30_DoubleBTagCSV_p087;
-    vector<float> *HLT_DoubleJetsC100_DoubleBTagCSV_p026_DoublePFJetsC160;
-    vector<float> *HLT_DoubleJetsC100_DoubleBTagCSV_p014_DoublePFJetsC100MaxDeta1p6;
-    vector<float> *HLT_DoubleJetsC112_DoubleBTagCSV_p026_DoublePFJetsC172;
-    vector<float> *HLT_DoubleJetsC112_DoubleBTagCSV_p014_DoublePFJetsC112MaxDeta1p6;
-    vector<float> *HLT_DoubleJetsC100_SingleBTagCSV_p026;
-    vector<float> *HLT_DoubleJetsC100_SingleBTagCSV_p014;
-    vector<float> *HLT_DoubleJetsC100_SingleBTagCSV_p026_SinglePFJetC350;
-    vector<float> *HLT_DoubleJetsC100_SingleBTagCSV_p014_SinglePFJetC350;
-    vector<float> *HLT_Photon135_PFMET100;
-    vector<float> *HLT_Photon20_CaloIdVL_IsoL;
-    vector<float> *HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_PFMET40;
-    vector<float> *HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_VBF;
-    vector<float> *HLT_Photon250_NoHE;
-    vector<float> *HLT_Photon300_NoHE;
-    vector<float> *HLT_Photon26_R9Id85_OR_CaloId24b40e_Iso50T80L_Photon16_AND_HE10_R9Id65_Eta2_Mass60;
-    vector<float> *HLT_Photon36_R9Id85_OR_CaloId24b40e_Iso50T80L_Photon22_AND_HE10_R9Id65_Eta2_Mass15;
-    vector<float> *HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_PFMET40;
-    vector<float> *HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_VBF;
-    vector<float> *HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_PFMET40;
-    vector<float> *HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_VBF;
-    vector<float> *HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_PFMET40;
-    vector<float> *HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_VBF;
-    vector<float> *HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_PFMET40;
-    vector<float> *HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_VBF;
-    vector<float> *HLT_Photon120_R9Id90_HE10_Iso40_EBOnly_PFMET40;
-    vector<float> *HLT_Photon120_R9Id90_HE10_Iso40_EBOnly_VBF;
-    vector<float> *HLT_Mu8_TrkIsoVVL;
-    vector<float> *HLT_Mu17_TrkIsoVVL;
-    vector<float> *HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30;
-    vector<float> *HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30;
-    vector<float> *HLT_Ele17_CaloIdL_TrackIdL_IsoVL_PFJet30;
-    vector<float> *HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30;
-    vector<float> *HLT_BTagMu_DiJet20_Mu5;
-    vector<float> *HLT_BTagMu_DiJet40_Mu5;
-    vector<float> *HLT_BTagMu_DiJet70_Mu5;
-    vector<float> *HLT_BTagMu_DiJet110_Mu5;
-    vector<float> *HLT_BTagMu_DiJet170_Mu5;
-    vector<float> *HLT_BTagMu_Jet300_Mu5;
-    vector<float> *HLT_BTagMu_AK8Jet300_Mu5;
-    vector<float> *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
-    vector<float> *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_L1JetTauSeeded;
-    vector<float> *HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
-    vector<float> *HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL;
-    vector<float> *HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
-    vector<float> *HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
-    vector<float> *HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ;
-    vector<float> *HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
-    vector<float> *HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL;
-    vector<float> *HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL;
-    vector<float> *HLT_Mu37_Ele27_CaloIdL_GsfTrkIdVL;
-    vector<float> *HLT_Mu27_Ele37_CaloIdL_GsfTrkIdVL;
-    vector<float> *HLT_Mu8_DiEle12_CaloIdL_TrackIdL;
-    vector<float> *HLT_Mu12_Photon25_CaloIdL;
-    vector<float> *HLT_Mu12_Photon25_CaloIdL_L1ISO;
-    vector<float> *HLT_Mu12_Photon25_CaloIdL_L1OR;
-    vector<float> *HLT_Mu17_Photon22_CaloIdL_L1ISO;
-    vector<float> *HLT_Mu17_Photon30_CaloIdL_L1ISO;
-    vector<float> *HLT_Mu17_Photon35_CaloIdL_L1ISO;
-    vector<float> *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
-    vector<float> *HLT_TripleMu_5_3_3;
-    vector<float> *HLT_TripleMu_12_10_5;
-    vector<float> *HLT_Mu3er_PFHT140_PFMET125;
-    vector<float> *HLT_Mu6_PFHT200_PFMET80_BTagCSV_p067;
-    vector<float> *HLT_Mu6_PFHT200_PFMET100;
-    vector<float> *HLT_Mu14er_PFMET100;
-    vector<float> *HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Ele12_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Ele17_CaloIdL_GsfTrkIdVL;
-    vector<float> *HLT_Ele17_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_Ele23_CaloIdL_TrackIdL_IsoVL;
-    vector<float> *HLT_PFHT650_WideJetMJJ900DEtaJJ1p5;
-    vector<float> *HLT_PFHT650_WideJetMJJ950DEtaJJ1p5;
-    vector<float> *HLT_Photon22;
-    vector<float> *HLT_Photon30;
-    vector<float> *HLT_Photon36;
-    vector<float> *HLT_Photon50;
-    vector<float> *HLT_Photon75;
-    vector<float> *HLT_Photon90;
-    vector<float> *HLT_Photon120;
-    vector<float> *HLT_Photon175;
-    vector<float> *HLT_Photon165_HE10;
-    vector<float> *HLT_Photon22_R9Id90_HE10_IsoM;
-    vector<float> *HLT_Photon30_R9Id90_HE10_IsoM;
-    vector<float> *HLT_Photon36_R9Id90_HE10_IsoM;
-    vector<float> *HLT_Photon50_R9Id90_HE10_IsoM;
-    vector<float> *HLT_Photon75_R9Id90_HE10_IsoM;
-    vector<float> *HLT_Photon90_R9Id90_HE10_IsoM;
-    vector<float> *HLT_Photon120_R9Id90_HE10_IsoM;
-    vector<float> *HLT_Photon165_R9Id90_HE10_IsoM;
-    vector<float> *HLT_Diphoton30_18_R9Id_OR_IsoCaloId_AND_HE_R9Id_Mass90;
-    vector<float> *HLT_Diphoton30_18_R9Id_OR_IsoCaloId_AND_HE_R9Id_DoublePixelSeedMatch_Mass70;
-    vector<float> *HLT_Diphoton30PV_18PV_R9Id_AND_IsoCaloId_AND_HE_R9Id_DoublePixelVeto_Mass55;
-    vector<float> *HLT_Diphoton30_18_Solid_R9Id_AND_IsoCaloId_AND_HE_R9Id_Mass55;
-    vector<float> *HLT_Diphoton30EB_18EB_R9Id_OR_IsoCaloId_AND_HE_R9Id_DoublePixelVeto_Mass55;
-    vector<float> *HLT_Dimuon0_Jpsi_Muon;
-    vector<float> *HLT_Dimuon0_Upsilon_Muon;
-    vector<float> *HLT_QuadMuon0_Dimuon0_Jpsi;
-    vector<float> *HLT_QuadMuon0_Dimuon0_Upsilon;
-    vector<float> *HLT_Rsq0p25_Calo;
-    vector<float> *HLT_RsqMR240_Rsq0p09_MR200_4jet_Calo;
-    vector<float> *HLT_RsqMR240_Rsq0p09_MR200_Calo;
-    vector<float> *HLT_Rsq0p25;
-    vector<float> *HLT_Rsq0p30;
-    vector<float> *HLT_RsqMR240_Rsq0p09_MR200;
-    vector<float> *HLT_RsqMR240_Rsq0p09_MR200_4jet;
-    vector<float> *HLT_RsqMR270_Rsq0p09_MR200;
-    vector<float> *HLT_RsqMR270_Rsq0p09_MR200_4jet;
-    vector<float> *HLT_Rsq0p02_MR300_TriPFJet80_60_40_BTagCSV_p063_p20_Mbb60_200;
-    vector<float> *HLT_Rsq0p02_MR400_TriPFJet80_60_40_DoubleBTagCSV_p063_Mbb60_200;
-    vector<float> *HLT_Rsq0p02_MR450_TriPFJet80_60_40_DoubleBTagCSV_p063_Mbb60_200;
-    vector<float> *HLT_Rsq0p02_MR500_TriPFJet80_60_40_DoubleBTagCSV_p063_Mbb60_200;
-    vector<float> *HLT_Rsq0p02_MR550_TriPFJet80_60_40_DoubleBTagCSV_p063_Mbb60_200;
-    vector<float> *HLT_HT200_DisplacedDijet40_DisplacedTrack;
-    vector<float> *HLT_HT250_DisplacedDijet40_DisplacedTrack;
-    vector<float> *HLT_HT350_DisplacedDijet40_DisplacedTrack;
-    vector<float> *HLT_HT350_DisplacedDijet80_DisplacedTrack;
-    vector<float> *HLT_HT350_DisplacedDijet80_Tight_DisplacedTrack;
-    vector<float> *HLT_HT350_DisplacedDijet40_Inclusive;
-    vector<float> *HLT_HT400_DisplacedDijet40_Inclusive;
-    vector<float> *HLT_HT500_DisplacedDijet40_Inclusive;
-    vector<float> *HLT_HT550_DisplacedDijet40_Inclusive;
-    vector<float> *HLT_HT550_DisplacedDijet80_Inclusive;
-    vector<float> *HLT_HT650_DisplacedDijet80_Inclusive;
-    vector<float> *HLT_HT750_DisplacedDijet80_Inclusive;
-    vector<float> *HLT_VBF_DisplacedJet40_DisplacedTrack;
-    vector<float> *HLT_VBF_DisplacedJet40_DisplacedTrack_2TrackIP2DSig5;
-    vector<float> *HLT_VBF_DisplacedJet40_TightID_DisplacedTrack;
-    vector<float> *HLT_VBF_DisplacedJet40_Hadronic;
-    vector<float> *HLT_VBF_DisplacedJet40_Hadronic_2PromptTrack;
-    vector<float> *HLT_VBF_DisplacedJet40_TightID_Hadronic;
-    vector<float> *HLT_VBF_DisplacedJet40_VTightID_Hadronic;
-    vector<float> *HLT_VBF_DisplacedJet40_VVTightID_Hadronic;
-    vector<float> *HLT_VBF_DisplacedJet40_VTightID_DisplacedTrack;
-    vector<float> *HLT_VBF_DisplacedJet40_VVTightID_DisplacedTrack;
-    vector<float> *HLT_PFMETNoMu90_PFMHTNoMu90_IDTight;
-    vector<float> *HLT_PFMETNoMu100_PFMHTNoMu100_IDTight;
-    vector<float> *HLT_PFMETNoMu110_PFMHTNoMu110_IDTight;
-    vector<float> *HLT_PFMETNoMu120_PFMHTNoMu120_IDTight;
-    vector<float> *HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight;
-    vector<float> *HLT_MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight;
-    vector<float> *HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight;
-    vector<float> *HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight;
-    vector<float> *HLT_Ele27_eta2p1_WPLoose_Gsf_HT200;
-    vector<float> *HLT_Photon90_CaloIdL_PFHT500;
-    vector<float> *HLT_DoubleMu8_Mass8_PFHT250;
-    vector<float> *HLT_Mu8_Ele8_CaloIdM_TrackIdM_Mass8_PFHT250;
-    vector<float> *HLT_DoubleEle8_CaloIdM_TrackIdM_Mass8_PFHT250;
-    vector<float> *HLT_DoubleMu8_Mass8_PFHT300;
-    vector<float> *HLT_Mu8_Ele8_CaloIdM_TrackIdM_Mass8_PFHT300;
-    vector<float> *HLT_DoubleEle8_CaloIdM_TrackIdM_Mass8_PFHT300;
-    vector<float> *HLT_Mu10_CentralPFJet30_BTagCSV_p13;
-    vector<float> *HLT_DoubleMu3_PFMET50;
-    vector<float> *HLT_Ele10_CaloIdM_TrackIdM_CentralPFJet30_BTagCSV_p13;
-    vector<float> *HLT_Ele15_IsoVVVL_BTagCSV_p067_PFHT400;
-    vector<float> *HLT_Ele15_IsoVVVL_PFHT350_PFMET50;
-    vector<float> *HLT_Ele15_IsoVVVL_PFHT600;
-    vector<float> *HLT_Ele15_IsoVVVL_PFHT350;
-    vector<float> *HLT_Ele15_IsoVVVL_PFHT400_PFMET50;
-    vector<float> *HLT_Ele15_IsoVVVL_PFHT400;
-    vector<float> *HLT_Ele50_IsoVVVL_PFHT400;
-    vector<float> *HLT_Mu8_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT300_PFMETNoMu60;
-    vector<float> *HLT_Mu10_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT350_PFMETNoMu60;
-    vector<float> *HLT_Mu15_IsoVVVL_BTagCSV_p067_PFHT400;
-    vector<float> *HLT_Mu15_IsoVVVL_PFHT350_PFMET50;
-    vector<float> *HLT_Mu15_IsoVVVL_PFHT600;
-    vector<float> *HLT_Mu15_IsoVVVL_PFHT350;
-    vector<float> *HLT_Mu15_IsoVVVL_PFHT400_PFMET50;
-    vector<float> *HLT_Mu15_IsoVVVL_PFHT400;
-    vector<float> *HLT_Mu50_IsoVVVL_PFHT400;
-    vector<float> *HLT_Dimuon16_Jpsi;
-    vector<float> *HLT_Dimuon10_Jpsi_Barrel;
-    vector<float> *HLT_Dimuon8_PsiPrime_Barrel;
-    vector<float> *HLT_Dimuon8_Upsilon_Barrel;
-    vector<float> *HLT_Dimuon0_Phi_Barrel;
-    vector<float> *HLT_Mu16_TkMu0_dEta18_Onia;
-    vector<float> *HLT_Mu16_TkMu0_dEta18_Phi;
-    vector<float> *HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx;
-    vector<float> *HLT_TrkMu17_DoubleTrkMu8NoFiltersNoVtx;
-    vector<float> *HLT_Mu8;
-    vector<float> *HLT_Mu17;
-    vector<float> *HLT_Mu3_PFJet40;
-    vector<float> *HLT_Ele8_CaloIdM_TrackIdM_PFJet30;
-    vector<float> *HLT_Ele12_CaloIdM_TrackIdM_PFJet30;
-    vector<float> *HLT_Ele17_CaloIdM_TrackIdM_PFJet30;
-    vector<float> *HLT_Ele23_CaloIdM_TrackIdM_PFJet30;
-    vector<float> *HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet140;
-    vector<float> *HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165;
-    vector<float> *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
-    vector<float> *HLT_PFHT450_SixJet40_BTagCSV_p056;
-    vector<float> *HLT_PFHT400_SixJet30;
-    vector<float> *HLT_PFHT450_SixJet40;
-    vector<float> *HLT_Ele115_CaloIdVT_GsfTrkIdT;
-    vector<float> *HLT_Mu55;
-    vector<float> *HLT_Photon42_R9Id85_OR_CaloId24b40e_Iso50T80L_Photon25_AND_HE10_R9Id65_Eta2_Mass15;
-    vector<float> *HLT_Photon90_CaloIdL_PFHT600;
-    vector<float> *HLT_PixelTracks_Multiplicity60ForEndOfFill;
-    vector<float> *HLT_PixelTracks_Multiplicity85ForEndOfFill;
-    vector<float> *HLT_PixelTracks_Multiplicity110ForEndOfFill;
-    vector<float> *HLT_PixelTracks_Multiplicity135ForEndOfFill;
-    vector<float> *HLT_PixelTracks_Multiplicity160ForEndOfFill;
-    vector<float> *HLT_FullTracks_Multiplicity80;
-    vector<float> *HLT_FullTracks_Multiplicity100;
-    vector<float> *HLT_FullTracks_Multiplicity130;
-    vector<float> *HLT_FullTracks_Multiplicity150;
-    vector<float> *HLT_ECALHT800;
-    vector<float> *HLT_DiSC30_18_EIso_AND_HE_Mass70;
-    vector<float> *HLT_Photon125;
-    vector<float> *HLT_MET100;
-    vector<float> *HLT_MET150;
-    vector<float> *HLT_MET200;
-    vector<float> *HLT_Ele27_HighEta_Ele20_Mass55;
-    vector<float> *HLT_L1FatEvents;
-    vector<float> *HLT_Physics;
-    vector<float> *HLT_L1FatEvents_part0;
-    vector<float> *HLT_L1FatEvents_part1;
-    vector<float> *HLT_L1FatEvents_part2;
-    vector<float> *HLT_L1FatEvents_part3;
-    vector<float> *HLT_Random;
-    vector<float> *HLT_ZeroBias;
-    vector<float> *HLT_AK4CaloJet30;
-    vector<float> *HLT_AK4CaloJet40;
-    vector<float> *HLT_AK4CaloJet50;
-    vector<float> *HLT_AK4CaloJet80;
-    vector<float> *HLT_AK4CaloJet100;
-    vector<float> *HLT_AK4PFJet30;
-    vector<float> *HLT_AK4PFJet50;
-    vector<float> *HLT_AK4PFJet80;
-    vector<float> *HLT_AK4PFJet100;
-    vector<float> *HLT_HISinglePhoton10;
-    vector<float> *HLT_HISinglePhoton15;
-    vector<float> *HLT_HISinglePhoton20;
-    vector<float> *HLT_HISinglePhoton40;
-    vector<float> *HLT_HISinglePhoton60;
-    vector<float> *HLT_EcalCalibration;
-    vector<float> *HLT_HcalCalibration;
-    vector<float> *HLT_GlobalRunHPDNoise;
-    vector<float> *HLT_L1BptxMinus;
-    vector<float> *HLT_L1BptxPlus;
-    vector<float> *HLT_L1NotBptxOR;
-    vector<float> *HLT_L1BeamGasMinus;
-    vector<float> *HLT_L1BeamGasPlus;
-    vector<float> *HLT_L1BptxXOR;
-    vector<float> *HLT_L1MinimumBiasHF_OR;
-    vector<float> *HLT_L1MinimumBiasHF_AND;
-    vector<float> *HLT_HcalNZS;
-    vector<float> *HLT_HcalPhiSym;
-    vector<float> *HLT_HcalIsolatedbunch;
-    vector<float> *HLT_ZeroBias_FirstCollisionAfterAbortGap;
-    vector<float> *HLT_ZeroBias_FirstCollisionAfterAbortGap_copy;
-    vector<float> *HLT_ZeroBias_FirstCollisionAfterAbortGap_TCDS;
-    vector<float> *HLT_ZeroBias_IsolatedBunches;
-    vector<float> *HLT_ZeroBias_FirstCollisionInTrain;
-    vector<float> *HLT_ZeroBias_FirstBXAfterTrain;
-    vector<float> *HLT_Photon500;
-    vector<float> *HLT_Photon600;
-    vector<float> *HLT_Mu300;
-    vector<float> *HLT_Mu350;
-    vector<float> *HLT_MET250;
-    vector<float> *HLT_MET300;
-    vector<float> *HLT_MET600;
-    vector<float> *HLT_MET700;
-    vector<float> *HLT_PFMET300;
-    vector<float> *HLT_PFMET400;
-    vector<float> *HLT_PFMET500;
-    vector<float> *HLT_PFMET600;
-    vector<float> *HLT_Ele250_CaloIdVT_GsfTrkIdT;
-    vector<float> *HLT_Ele300_CaloIdVT_GsfTrkIdT;
-    vector<float> *HLT_HT2000;
-    vector<float> *HLT_HT2500;
-    vector<float> *HLT_IsoTrackHE;
-    vector<float> *HLT_IsoTrackHB;
-    vector<float> *HLTriggerFinalPath;
-    vector<float> *Flag_HBHENoiseFilter;
-    vector<float> *Flag_HBHENoiseIsoFilter;
-    vector<float> *Flag_CSCTightHaloFilter;
-    vector<float> *Flag_CSCTightHaloTrkMuUnvetoFilter;
-    vector<float> *Flag_CSCTightHalo2015Filter;
-    vector<float> *Flag_globalTightHalo2016Filter;
-    vector<float> *Flag_globalSuperTightHalo2016Filter;
-    vector<float> *Flag_HcalStripHaloFilter;
-    vector<float> *Flag_hcalLaserEventFilter;
-    vector<float> *Flag_EcalDeadCellTriggerPrimitiveFilter;
-    vector<float> *Flag_EcalDeadCellBoundaryEnergyFilter;
-    vector<float> *Flag_goodVertices;
-    vector<float> *Flag_eeBadScFilter;
-    vector<float> *Flag_ecalLaserCorrFilter;
-    vector<float> *Flag_trkPOGFilters;
-    vector<float> *Flag_chargedHadronTrackResolutionFilter;
-    vector<float> *Flag_muonBadTrackFilter;
-    vector<float> *Flag_trkPOG_manystripclus53X;
-    vector<float> *Flag_trkPOG_toomanystripclus53X;
-    vector<float> *Flag_trkPOG_logErrorTooManyClusters;
-    vector<float> *Flag_METFilters;
+    UInt_t          run;
+    UInt_t          luminosityBlock;
+    ULong64_t       event;
+    Float_t         CaloMET_phi;
+    Float_t         CaloMET_pt;
+    Float_t         CaloMET_sumEt;
+    UInt_t          nElectron;
+    Float_t         Electron_deltaEtaSC[11];   //[nElectron]
+    Float_t         Electron_dr03EcalRecHitSumEt[11];   //[nElectron]
+    Float_t         Electron_dr03HcalDepth1TowerSumEt[11];   //[nElectron]
+    Float_t         Electron_dr03TkSumPt[11];   //[nElectron]
+    Float_t         Electron_dxy[11];   //[nElectron]
+    Float_t         Electron_dxyErr[11];   //[nElectron]
+    Float_t         Electron_dz[11];   //[nElectron]
+    Float_t         Electron_dzErr[11];   //[nElectron]
+    Float_t         Electron_eCorr[11];   //[nElectron]
+    Float_t         Electron_eInvMinusPInv[11];   //[nElectron]
+    Float_t         Electron_energyErr[11];   //[nElectron]
+    Float_t         Electron_eta[11];   //[nElectron]
+    Float_t         Electron_hoe[11];   //[nElectron]
+    Float_t         Electron_ip3d[11];   //[nElectron]
+    Float_t         Electron_mass[11];   //[nElectron]
+    Float_t         Electron_miniPFRelIso_all[11];   //[nElectron]
+    Float_t         Electron_miniPFRelIso_chg[11];   //[nElectron]
+    Float_t         Electron_mvaSpring16GP[11];   //[nElectron]
+    Float_t         Electron_mvaSpring16HZZ[11];   //[nElectron]
+    Float_t         Electron_pfRelIso03_all[11];   //[nElectron]
+    Float_t         Electron_pfRelIso03_chg[11];   //[nElectron]
+    Float_t         Electron_phi[11];   //[nElectron]
+    Float_t         Electron_pt[11];   //[nElectron]
+    Float_t         Electron_r9[11];   //[nElectron]
+    Float_t         Electron_sieie[11];   //[nElectron]
+    Float_t         Electron_sip3d[11];   //[nElectron]
+    Float_t         Electron_mvaTTH[11];   //[nElectron]
+    Int_t           Electron_charge[11];   //[nElectron]
+    Int_t           Electron_cutBased[11];   //[nElectron]
+    Int_t           Electron_cutBased_HLTPreSel[11];   //[nElectron]
+    Int_t           Electron_jetIdx[11];   //[nElectron]
+    Int_t           Electron_pdgId[11];   //[nElectron]
+    Int_t           Electron_photonIdx[11];   //[nElectron]
+    Int_t           Electron_tightCharge[11];   //[nElectron]
+    Int_t           Electron_vidNestedWPBitmap[11];   //[nElectron]
+    Bool_t          Electron_convVeto[11];   //[nElectron]
+    Bool_t          Electron_cutBased_HEEP[11];   //[nElectron]
+    Bool_t          Electron_isPFcand[11];   //[nElectron]
+    UChar_t         Electron_lostHits[11];   //[nElectron]
+    Bool_t          Electron_mvaSpring16GP_WP80[11];   //[nElectron]
+    Bool_t          Electron_mvaSpring16GP_WP90[11];   //[nElectron]
+    Bool_t          Electron_mvaSpring16HZZ_WPL[11];   //[nElectron]
+    UInt_t          nFatJet;
+    Float_t         FatJet_area[8];   //[nFatJet]
+    Float_t         FatJet_btagCMVA[8];   //[nFatJet]
+    Float_t         FatJet_btagCSVV2[8];   //[nFatJet]
+    Float_t         FatJet_btagDeepB[8];   //[nFatJet]
+    Float_t         FatJet_btagHbb[8];   //[nFatJet]
+    Float_t         FatJet_eta[8];   //[nFatJet]
+    Float_t         FatJet_mass[8];   //[nFatJet]
+    Float_t         FatJet_msoftdrop[8];   //[nFatJet]
+    Float_t         FatJet_msoftdrop_chs[8];   //[nFatJet]
+    Float_t         FatJet_n2b1[8];   //[nFatJet]
+    Float_t         FatJet_n3b1[8];   //[nFatJet]
+    Float_t         FatJet_phi[8];   //[nFatJet]
+    Float_t         FatJet_pt[8];   //[nFatJet]
+    Float_t         FatJet_tau1[8];   //[nFatJet]
+    Float_t         FatJet_tau2[8];   //[nFatJet]
+    Float_t         FatJet_tau3[8];   //[nFatJet]
+    Float_t         FatJet_tau4[8];   //[nFatJet]
+    Int_t           FatJet_jetId[8];   //[nFatJet]
+    Int_t           FatJet_subJetIdx1[8];   //[nFatJet]
+    Int_t           FatJet_subJetIdx2[8];   //[nFatJet]
+    UInt_t          nGenJetAK8;
+    Float_t         GenJetAK8_eta[8];   //[nGenJetAK8]
+    Float_t         GenJetAK8_mass[8];   //[nGenJetAK8]
+    Float_t         GenJetAK8_phi[8];   //[nGenJetAK8]
+    Float_t         GenJetAK8_pt[8];   //[nGenJetAK8]
+    UInt_t          nGenJet;
+    Float_t         GenJet_eta[28];   //[nGenJet]
+    Float_t         GenJet_mass[28];   //[nGenJet]
+    Float_t         GenJet_phi[28];   //[nGenJet]
+    Float_t         GenJet_pt[28];   //[nGenJet]
+    UInt_t          nGenPart;
+    Float_t         GenPart_eta[234];   //[nGenPart]
+    Float_t         GenPart_mass[234];   //[nGenPart]
+    Float_t         GenPart_phi[234];   //[nGenPart]
+    Float_t         GenPart_pt[234];   //[nGenPart]
+    Int_t           GenPart_genPartIdxMother[234];   //[nGenPart]
+    Int_t           GenPart_pdgId[234];   //[nGenPart]
+    Int_t           GenPart_status[234];   //[nGenPart]
+    Int_t           GenPart_statusFlags[234];   //[nGenPart]
+    Float_t         Generator_binvar;
+    Float_t         Generator_scalePDF;
+    Float_t         Generator_weight;
+    Float_t         Generator_x1;
+    Float_t         Generator_x2;
+    Float_t         Generator_xpdf1;
+    Float_t         Generator_xpdf2;
+    Int_t           Generator_id1;
+    Int_t           Generator_id2;
+    UInt_t          nGenVisTau;
+    Float_t         GenVisTau_eta[4];   //[nGenVisTau]
+    Float_t         GenVisTau_mass[4];   //[nGenVisTau]
+    Float_t         GenVisTau_phi[4];   //[nGenVisTau]
+    Float_t         GenVisTau_pt[4];   //[nGenVisTau]
+    Int_t           GenVisTau_charge[4];   //[nGenVisTau]
+    Int_t           GenVisTau_genPartIdxMother[4];   //[nGenVisTau]
+    Int_t           GenVisTau_status[4];   //[nGenVisTau]
+    Float_t         genWeight;
+    Float_t         LHEWeight_originalXWGTUP;
+    UInt_t          nLHEPdfWeight;
+    Float_t         LHEPdfWeight[100];   //[nLHEPdfWeight]
+    UInt_t          nLHEScaleWeight;
+    Float_t         LHEScaleWeight[9];   //[nLHEScaleWeight]
+    UInt_t          nJet;
+    Float_t         Jet_area[48];   //[nJet]
+    Float_t         Jet_btagCMVA[48];   //[nJet]
+    Float_t         Jet_btagCSVV2[48];   //[nJet]
+    Float_t         Jet_btagDeepB[48];   //[nJet]
+    Float_t         Jet_btagDeepC[48];   //[nJet]
+    Float_t         Jet_chEmEF[48];   //[nJet]
+    Float_t         Jet_chHEF[48];   //[nJet]
+    Float_t         Jet_eta[48];   //[nJet]
+    Float_t         Jet_mass[48];   //[nJet]
+    Float_t         Jet_neEmEF[48];   //[nJet]
+    Float_t         Jet_neHEF[48];   //[nJet]
+    Float_t         Jet_phi[48];   //[nJet]
+    Float_t         Jet_pt[48];   //[nJet]
+    Float_t         Jet_qgl[48];   //[nJet]
+    Float_t         Jet_rawFactor[48];   //[nJet]
+    Float_t         Jet_bReg[48];   //[nJet]
+    Int_t           Jet_electronIdx1[48];   //[nJet]
+    Int_t           Jet_electronIdx2[48];   //[nJet]
+    Int_t           Jet_jetId[48];   //[nJet]
+    Int_t           Jet_muonIdx1[48];   //[nJet]
+    Int_t           Jet_muonIdx2[48];   //[nJet]
+    Int_t           Jet_nConstituents[48];   //[nJet]
+    Int_t           Jet_nElectrons[48];   //[nJet]
+    Int_t           Jet_nMuons[48];   //[nJet]
+    Int_t           Jet_puId[48];   //[nJet]
+    Float_t         LHE_HT;
+    Float_t         LHE_HTIncoming;
+    Float_t         LHE_Vpt;
+    UChar_t         LHE_Njets;
+    UChar_t         LHE_Nb;
+    UChar_t         LHE_Nc;
+    UChar_t         LHE_Nuds;
+    UChar_t         LHE_Nglu;
+    UChar_t         LHE_NpNLO;
+    UChar_t         LHE_NpLO;
+    Float_t         GenMET_phi;
+    Float_t         GenMET_pt;
+    Float_t         MET_MetUnclustEnUpDeltaX;
+    Float_t         MET_MetUnclustEnUpDeltaY;
+    Float_t         MET_covXX;
+    Float_t         MET_covXY;
+    Float_t         MET_covYY;
+    Float_t         MET_phi;
+    Float_t         MET_pt;
+    Float_t         MET_significance;
+    Float_t         MET_sumEt;
+    UInt_t          nMuon;
+    Float_t         Muon_dxy[9];   //[nMuon]
+    Float_t         Muon_dxyErr[9];   //[nMuon]
+    Float_t         Muon_dz[9];   //[nMuon]
+    Float_t         Muon_dzErr[9];   //[nMuon]
+    Float_t         Muon_eta[9];   //[nMuon]
+    Float_t         Muon_ip3d[9];   //[nMuon]
+    Float_t         Muon_mass[9];   //[nMuon]
+    Float_t         Muon_miniPFRelIso_all[9];   //[nMuon]
+    Float_t         Muon_miniPFRelIso_chg[9];   //[nMuon]
+    Float_t         Muon_pfRelIso03_all[9];   //[nMuon]
+    Float_t         Muon_pfRelIso03_chg[9];   //[nMuon]
+    Float_t         Muon_pfRelIso04_all[9];   //[nMuon]
+    Float_t         Muon_phi[9];   //[nMuon]
+    Float_t         Muon_pt[9];   //[nMuon]
+    Float_t         Muon_ptErr[9];   //[nMuon]
+    Float_t         Muon_segmentComp[9];   //[nMuon]
+    Float_t         Muon_sip3d[9];   //[nMuon]
+    Float_t         Muon_mvaTTH[9];   //[nMuon]
+    Int_t           Muon_charge[9];   //[nMuon]
+    Int_t           Muon_jetIdx[9];   //[nMuon]
+    Int_t           Muon_nStations[9];   //[nMuon]
+    Int_t           Muon_nTrackerLayers[9];   //[nMuon]
+    Int_t           Muon_pdgId[9];   //[nMuon]
+    Int_t           Muon_tightCharge[9];   //[nMuon]
+    UChar_t         Muon_highPtId[9];   //[nMuon]
+    Bool_t          Muon_isPFcand[9];   //[nMuon]
+    Bool_t          Muon_mediumId[9];   //[nMuon]
+    Bool_t          Muon_softId[9];   //[nMuon]
+    Bool_t          Muon_tightId[9];   //[nMuon]
+    UInt_t          nPhoton;
+    Float_t         Photon_eCorr[13];   //[nPhoton]
+    Float_t         Photon_energyErr[13];   //[nPhoton]
+    Float_t         Photon_eta[13];   //[nPhoton]
+    Float_t         Photon_hoe[13];   //[nPhoton]
+    Float_t         Photon_mass[13];   //[nPhoton]
+    Float_t         Photon_mvaID[13];   //[nPhoton]
+    Float_t         Photon_pfRelIso03_all[13];   //[nPhoton]
+    Float_t         Photon_pfRelIso03_chg[13];   //[nPhoton]
+    Float_t         Photon_phi[13];   //[nPhoton]
+    Float_t         Photon_pt[13];   //[nPhoton]
+    Float_t         Photon_r9[13];   //[nPhoton]
+    Float_t         Photon_sieie[13];   //[nPhoton]
+    Int_t           Photon_charge[13];   //[nPhoton]
+    Int_t           Photon_cutBased[13];   //[nPhoton]
+    Int_t           Photon_electronIdx[13];   //[nPhoton]
+    Int_t           Photon_jetIdx[13];   //[nPhoton]
+    Int_t           Photon_pdgId[13];   //[nPhoton]
+    Int_t           Photon_vidNestedWPBitmap[13];   //[nPhoton]
+    Bool_t          Photon_electronVeto[13];   //[nPhoton]
+    Bool_t          Photon_mvaID_WP80[13];   //[nPhoton]
+    Bool_t          Photon_mvaID_WP90[13];   //[nPhoton]
+    Bool_t          Photon_pixelSeed[13];   //[nPhoton]
+    Float_t         Pileup_nTrueInt;
+    Int_t           Pileup_nPU;
+    Int_t           Pileup_sumEOOT;
+    Int_t           Pileup_sumLOOT;
+    Float_t         PuppiMET_phi;
+    Float_t         PuppiMET_pt;
+    Float_t         PuppiMET_sumEt;
+    Float_t         RawMET_phi;
+    Float_t         RawMET_pt;
+    Float_t         RawMET_sumEt;
+    Float_t         fixedGridRhoFastjetAll;
+    Float_t         fixedGridRhoFastjetCentralCalo;
+    Float_t         fixedGridRhoFastjetCentralNeutral;
+    UInt_t          nGenDressedLepton;
+    Float_t         GenDressedLepton_eta[4];   //[nGenDressedLepton]
+    Float_t         GenDressedLepton_mass[4];   //[nGenDressedLepton]
+    Float_t         GenDressedLepton_phi[4];   //[nGenDressedLepton]
+    Float_t         GenDressedLepton_pt[4];   //[nGenDressedLepton]
+    Int_t           GenDressedLepton_pdgId[4];   //[nGenDressedLepton]
+    UInt_t          nSoftActivityJet;
+    Float_t         SoftActivityJet_eta[6];   //[nSoftActivityJet]
+    Float_t         SoftActivityJet_phi[6];   //[nSoftActivityJet]
+    Float_t         SoftActivityJet_pt[6];   //[nSoftActivityJet]
+    Float_t         SoftActivityJetHT;
+    Float_t         SoftActivityJetHT10;
+    Float_t         SoftActivityJetHT2;
+    Float_t         SoftActivityJetHT5;
+    Int_t           SoftActivityJetNjets10;
+    Int_t           SoftActivityJetNjets2;
+    Int_t           SoftActivityJetNjets5;
+    UInt_t          nSubJet;
+    Float_t         SubJet_btagCMVA[12];   //[nSubJet]
+    Float_t         SubJet_btagCSVV2[12];   //[nSubJet]
+    Float_t         SubJet_btagDeepB[12];   //[nSubJet]
+    Float_t         SubJet_eta[12];   //[nSubJet]
+    Float_t         SubJet_mass[12];   //[nSubJet]
+    Float_t         SubJet_n2b1[12];   //[nSubJet]
+    Float_t         SubJet_n3b1[12];   //[nSubJet]
+    Float_t         SubJet_phi[12];   //[nSubJet]
+    Float_t         SubJet_pt[12];   //[nSubJet]
+    Float_t         SubJet_tau1[12];   //[nSubJet]
+    Float_t         SubJet_tau2[12];   //[nSubJet]
+    Float_t         SubJet_tau3[12];   //[nSubJet]
+    Float_t         SubJet_tau4[12];   //[nSubJet]
+    UInt_t          nTau;
+    Float_t         Tau_chargedIso[7];   //[nTau]
+    Float_t         Tau_dxy[7];   //[nTau]
+    Float_t         Tau_dz[7];   //[nTau]
+    Float_t         Tau_eta[7];   //[nTau]
+    Float_t         Tau_footprintCorr[7];   //[nTau]
+    Float_t         Tau_leadTkDeltaEta[7];   //[nTau]
+    Float_t         Tau_leadTkDeltaPhi[7];   //[nTau]
+    Float_t         Tau_leadTkPtOverTauPt[7];   //[nTau]
+    Float_t         Tau_mass[7];   //[nTau]
+    Float_t         Tau_neutralIso[7];   //[nTau]
+    Float_t         Tau_phi[7];   //[nTau]
+    Float_t         Tau_photonsOutsideSignalCone[7];   //[nTau]
+    Float_t         Tau_pt[7];   //[nTau]
+    Float_t         Tau_puCorr[7];   //[nTau]
+    Float_t         Tau_rawAntiEle[7];   //[nTau]
+    Float_t         Tau_rawIso[7];   //[nTau]
+    Float_t         Tau_rawMVAnewDM[7];   //[nTau]
+    Float_t         Tau_rawMVAoldDM[7];   //[nTau]
+    Float_t         Tau_rawMVAoldDMdR03[7];   //[nTau]
+    Int_t           Tau_charge[7];   //[nTau]
+    Int_t           Tau_decayMode[7];   //[nTau]
+    Int_t           Tau_jetIdx[7];   //[nTau]
+    Int_t           Tau_rawAntiEleCat[7];   //[nTau]
+    UChar_t         Tau_idAntiEle[7];   //[nTau]
+    UChar_t         Tau_idAntiMu[7];   //[nTau]
+    Bool_t          Tau_idDecayMode[7];   //[nTau]
+    Bool_t          Tau_idDecayModeNewDMs[7];   //[nTau]
+    UChar_t         Tau_idMVAnewDM[7];   //[nTau]
+    UChar_t         Tau_idMVAoldDM[7];   //[nTau]
+    UChar_t         Tau_idMVAoldDMdR03[7];   //[nTau]
+    Float_t         TkMET_phi;
+    Float_t         TkMET_pt;
+    Float_t         TkMET_sumEt;
+    UInt_t          nTrigObj;
+    Float_t         TrigObj_pt[81];   //[nTrigObj]
+    Float_t         TrigObj_eta[81];   //[nTrigObj]
+    Float_t         TrigObj_phi[81];   //[nTrigObj]
+    Float_t         TrigObj_l1pt[81];   //[nTrigObj]
+    Float_t         TrigObj_l1pt_2[81];   //[nTrigObj]
+    Float_t         TrigObj_l2pt[81];   //[nTrigObj]
+    Int_t           TrigObj_id[81];   //[nTrigObj]
+    Int_t           TrigObj_l1iso[81];   //[nTrigObj]
+    Int_t           TrigObj_l1charge[81];   //[nTrigObj]
+    Int_t           TrigObj_filterBits[81];   //[nTrigObj]
+    Int_t           genTtbarId;
+    UInt_t          nOtherPV;
+    Float_t         OtherPV_z[3];   //[nOtherPV]
+    Float_t         PV_ndof;
+    Float_t         PV_x;
+    Float_t         PV_y;
+    Float_t         PV_z;
+    Float_t         PV_chi2;
+    Float_t         PV_score;
+    Int_t           PV_npvs;
+    Int_t           PV_npvsGood;
+    UInt_t          nSV;
+    Float_t         SV_dlen[18];   //[nSV]
+    Float_t         SV_dlenSig[18];   //[nSV]
+    Float_t         SV_pAngle[18];   //[nSV]
+    Int_t           Electron_genPartIdx[11];   //[nElectron]
+    UChar_t         Electron_genPartFlav[11];   //[nElectron]
+    Int_t           GenJetAK8_partonFlavour[8];   //[nGenJetAK8]
+    UChar_t         GenJetAK8_hadronFlavour[8];   //[nGenJetAK8]
+    Int_t           GenJet_partonFlavour[28];   //[nGenJet]
+    UChar_t         GenJet_hadronFlavour[28];   //[nGenJet]
+    Int_t           Jet_genJetIdx[48];   //[nJet]
+    Int_t           Jet_hadronFlavour[48];   //[nJet]
+    Int_t           Jet_partonFlavour[48];   //[nJet]
+    Int_t           Muon_genPartIdx[9];   //[nMuon]
+    UChar_t         Muon_genPartFlav[9];   //[nMuon]
+    Int_t           Photon_genPartIdx[13];   //[nPhoton]
+    UChar_t         Photon_genPartFlav[13];   //[nPhoton]
+    Float_t         MET_fiducialGenPhi;
+    Float_t         MET_fiducialGenPt;
+    UChar_t         Electron_cleanmask[11];   //[nElectron]
+    UChar_t         Jet_cleanmask[48];   //[nJet]
+    UChar_t         Muon_cleanmask[9];   //[nMuon]
+    UChar_t         Photon_cleanmask[13];   //[nPhoton]
+    UChar_t         Tau_cleanmask[7];   //[nTau]
+    Float_t         SV_chi2[18];   //[nSV]
+    Float_t         SV_eta[18];   //[nSV]
+    Float_t         SV_mass[18];   //[nSV]
+    Float_t         SV_ndof[18];   //[nSV]
+    Float_t         SV_phi[18];   //[nSV]
+    Float_t         SV_pt[18];   //[nSV]
+    Float_t         SV_x[18];   //[nSV]
+    Float_t         SV_y[18];   //[nSV]
+    Float_t         SV_z[18];   //[nSV]
+    Int_t           Tau_genPartIdx[7];   //[nTau]
+    UChar_t         Tau_genPartFlav[7];   //[nTau]
+    Bool_t          L1simulation_step;
+    Bool_t          HLTriggerFirstPath;
+    Bool_t          HLT_AK8PFJet360_TrimMass30;
+    Bool_t          HLT_AK8PFJet400_TrimMass30;
+    Bool_t          HLT_AK8PFHT750_TrimMass50;
+    Bool_t          HLT_AK8PFHT800_TrimMass50;
+    Bool_t          HLT_AK8DiPFJet300_200_TrimMass30_BTagCSV_p20;
+    Bool_t          HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p087;
+    Bool_t          HLT_AK8DiPFJet300_200_TrimMass30_BTagCSV_p087;
+    Bool_t          HLT_AK8DiPFJet300_200_TrimMass30;
+    Bool_t          HLT_AK8PFHT700_TrimR0p1PT0p03Mass50;
+    Bool_t          HLT_AK8PFHT650_TrimR0p1PT0p03Mass50;
+    Bool_t          HLT_AK8PFHT600_TrimR0p1PT0p03Mass50_BTagCSV_p20;
+    Bool_t          HLT_AK8DiPFJet280_200_TrimMass30;
+    Bool_t          HLT_AK8DiPFJet250_200_TrimMass30;
+    Bool_t          HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20;
+    Bool_t          HLT_AK8DiPFJet250_200_TrimMass30_BTagCSV_p20;
+    Bool_t          HLT_CaloJet260;
+    Bool_t          HLT_CaloJet500_NoJetID;
+    Bool_t          HLT_Dimuon13_PsiPrime;
+    Bool_t          HLT_Dimuon13_Upsilon;
+    Bool_t          HLT_Dimuon20_Jpsi;
+    Bool_t          HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf;
+    Bool_t          HLT_DoubleEle25_CaloIdL_GsfTrkIdVL;
+    Bool_t          HLT_DoubleEle33_CaloIdL;
+    Bool_t          HLT_DoubleEle33_CaloIdL_MW;
+    Bool_t          HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW;
+    Bool_t          HLT_DoubleEle33_CaloIdL_GsfTrkIdVL;
+    Bool_t          HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg;
+    Bool_t          HLT_DoubleTightCombinedIsoPFTau35_Trk1_eta2p1_Reg;
+    Bool_t          HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1_Reg;
+    Bool_t          HLT_DoubleTightCombinedIsoPFTau40_Trk1_eta2p1_Reg;
+    Bool_t          HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1;
+    Bool_t          HLT_DoubleTightCombinedIsoPFTau40_Trk1_eta2p1;
+    Bool_t          HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg;
+    Bool_t          HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg;
+    Bool_t          HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1;
+    Bool_t          HLT_DoubleEle37_Ele27_CaloIdL_GsfTrkIdVL;
+    Bool_t          HLT_DoubleMu33NoFiltersNoVtx;
+    Bool_t          HLT_DoubleMu38NoFiltersNoVtx;
+    Bool_t          HLT_DoubleMu23NoFiltersNoVtxDisplaced;
+    Bool_t          HLT_DoubleMu28NoFiltersNoVtxDisplaced;
+    Bool_t          HLT_DoubleMu0;
+    Bool_t          HLT_DoubleMu4_3_Bs;
+    Bool_t          HLT_DoubleMu4_3_Jpsi_Displaced;
+    Bool_t          HLT_DoubleMu4_JpsiTrk_Displaced;
+    Bool_t          HLT_DoubleMu4_LowMassNonResonantTrk_Displaced;
+    Bool_t          HLT_DoubleMu3_Trk_Tau3mu;
+    Bool_t          HLT_DoubleMu4_PsiPrimeTrk_Displaced;
+    Bool_t          HLT_Mu7p5_L2Mu2_Jpsi;
+    Bool_t          HLT_Mu7p5_L2Mu2_Upsilon;
+    Bool_t          HLT_Mu7p5_Track2_Jpsi;
+    Bool_t          HLT_Mu7p5_Track3p5_Jpsi;
+    Bool_t          HLT_Mu7p5_Track7_Jpsi;
+    Bool_t          HLT_Mu7p5_Track2_Upsilon;
+    Bool_t          HLT_Mu7p5_Track3p5_Upsilon;
+    Bool_t          HLT_Mu7p5_Track7_Upsilon;
+    Bool_t          HLT_Dimuon0er16_Jpsi_NoOS_NoVertexing;
+    Bool_t          HLT_Dimuon0er16_Jpsi_NoVertexing;
+    Bool_t          HLT_Dimuon6_Jpsi_NoVertexing;
+    Bool_t          HLT_Photon150;
+    Bool_t          HLT_Photon90_CaloIdL_HT300;
+    Bool_t          HLT_HT250_CaloMET70;
+    Bool_t          HLT_DoublePhoton60;
+    Bool_t          HLT_DoublePhoton85;
+    Bool_t          HLT_Ele17_Ele8_Gsf;
+    Bool_t          HLT_Ele20_eta2p1_WPLoose_Gsf_LooseIsoPFTau28;
+    Bool_t          HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau29;
+    Bool_t          HLT_Ele22_eta2p1_WPLoose_Gsf;
+    Bool_t          HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
+    Bool_t          HLT_Ele23_WPLoose_Gsf;
+    Bool_t          HLT_Ele23_WPLoose_Gsf_WHbbBoost;
+    Bool_t          HLT_Ele24_eta2p1_WPLoose_Gsf;
+    Bool_t          HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20;
+    Bool_t          HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
+    Bool_t          HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30;
+    Bool_t          HLT_Ele25_WPTight_Gsf;
+    Bool_t          HLT_Ele25_eta2p1_WPLoose_Gsf;
+    Bool_t          HLT_Ele25_eta2p1_WPTight_Gsf;
+    Bool_t          HLT_Ele27_WPLoose_Gsf;
+    Bool_t          HLT_Ele27_WPLoose_Gsf_WHbbBoost;
+    Bool_t          HLT_Ele27_WPTight_Gsf;
+    Bool_t          HLT_Ele27_WPTight_Gsf_L1JetTauSeeded;
+    Bool_t          HLT_Ele27_eta2p1_WPLoose_Gsf;
+    Bool_t          HLT_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
+    Bool_t          HLT_Ele27_eta2p1_WPTight_Gsf;
+    Bool_t          HLT_Ele30_WPTight_Gsf;
+    Bool_t          HLT_Ele30_eta2p1_WPLoose_Gsf;
+    Bool_t          HLT_Ele30_eta2p1_WPTight_Gsf;
+    Bool_t          HLT_Ele32_WPTight_Gsf;
+    Bool_t          HLT_Ele32_eta2p1_WPLoose_Gsf;
+    Bool_t          HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
+    Bool_t          HLT_Ele32_eta2p1_WPTight_Gsf;
+    Bool_t          HLT_Ele35_WPLoose_Gsf;
+    Bool_t          HLT_Ele35_CaloIdVT_GsfTrkIdT_PFJet150_PFJet50;
+    Bool_t          HLT_Ele36_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
+    Bool_t          HLT_Ele45_WPLoose_Gsf;
+    Bool_t          HLT_Ele45_WPLoose_Gsf_L1JetTauSeeded;
+    Bool_t          HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50;
+    Bool_t          HLT_Ele105_CaloIdVT_GsfTrkIdT;
+    Bool_t          HLT_Ele30WP60_SC4_Mass55;
+    Bool_t          HLT_Ele30WP60_Ele8_Mass55;
+    Bool_t          HLT_HT200;
+    Bool_t          HLT_HT275;
+    Bool_t          HLT_HT325;
+    Bool_t          HLT_HT425;
+    Bool_t          HLT_HT575;
+    Bool_t          HLT_HT410to430;
+    Bool_t          HLT_HT430to450;
+    Bool_t          HLT_HT450to470;
+    Bool_t          HLT_HT470to500;
+    Bool_t          HLT_HT500to550;
+    Bool_t          HLT_HT550to650;
+    Bool_t          HLT_HT650;
+    Bool_t          HLT_Mu16_eta2p1_MET30;
+    Bool_t          HLT_IsoMu16_eta2p1_MET30;
+    Bool_t          HLT_IsoMu16_eta2p1_MET30_LooseIsoPFTau50_Trk30_eta2p1;
+    Bool_t          HLT_IsoMu17_eta2p1;
+    Bool_t          HLT_IsoMu17_eta2p1_LooseIsoPFTau20;
+    Bool_t          HLT_IsoMu17_eta2p1_LooseIsoPFTau20_SingleL1;
+    Bool_t          HLT_DoubleIsoMu17_eta2p1;
+    Bool_t          HLT_DoubleIsoMu17_eta2p1_noDzCut;
+    Bool_t          HLT_IsoMu18;
+    Bool_t          HLT_IsoMu19_eta2p1_LooseIsoPFTau20;
+    Bool_t          HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1;
+    Bool_t          HLT_IsoMu19_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg;
+    Bool_t          HLT_IsoMu19_eta2p1_LooseCombinedIsoPFTau20;
+    Bool_t          HLT_IsoMu19_eta2p1_MediumCombinedIsoPFTau32_Trk1_eta2p1_Reg;
+    Bool_t          HLT_IsoMu19_eta2p1_TightCombinedIsoPFTau32_Trk1_eta2p1_Reg;
+    Bool_t          HLT_IsoMu21_eta2p1_MediumCombinedIsoPFTau32_Trk1_eta2p1_Reg;
+    Bool_t          HLT_IsoMu21_eta2p1_TightCombinedIsoPFTau32_Trk1_eta2p1_Reg;
+    Bool_t          HLT_IsoMu20;
+    Bool_t          HLT_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1;
+    Bool_t          HLT_IsoMu21_eta2p1_LooseIsoPFTau50_Trk30_eta2p1_SingleL1;
+    Bool_t          HLT_IsoMu21_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg;
+    Bool_t          HLT_IsoMu22;
+    Bool_t          HLT_IsoMu22_eta2p1;
+    Bool_t          HLT_IsoMu24;
+    Bool_t          HLT_IsoMu27;
+    Bool_t          HLT_IsoTkMu18;
+    Bool_t          HLT_IsoTkMu20;
+    Bool_t          HLT_IsoTkMu22;
+    Bool_t          HLT_IsoTkMu22_eta2p1;
+    Bool_t          HLT_IsoTkMu24;
+    Bool_t          HLT_IsoTkMu27;
+    Bool_t          HLT_JetE30_NoBPTX3BX;
+    Bool_t          HLT_JetE30_NoBPTX;
+    Bool_t          HLT_JetE50_NoBPTX3BX;
+    Bool_t          HLT_JetE70_NoBPTX3BX;
+    Bool_t          HLT_L1SingleMu18;
+    Bool_t          HLT_L2Mu10;
+    Bool_t          HLT_L1SingleMuOpen;
+    Bool_t          HLT_L1SingleMuOpen_DT;
+    Bool_t          HLT_L2DoubleMu23_NoVertex;
+    Bool_t          HLT_L2DoubleMu28_NoVertex_2Cha_Angle2p5_Mass10;
+    Bool_t          HLT_L2DoubleMu38_NoVertex_2Cha_Angle2p5_Mass10;
+    Bool_t          HLT_L2Mu10_NoVertex_NoBPTX3BX;
+    Bool_t          HLT_L2Mu10_NoVertex_NoBPTX;
+    Bool_t          HLT_L2Mu45_NoVertex_3Sta_NoBPTX3BX;
+    Bool_t          HLT_L2Mu40_NoVertex_3Sta_NoBPTX3BX;
+    Bool_t          HLT_LooseIsoPFTau50_Trk30_eta2p1;
+    Bool_t          HLT_LooseIsoPFTau50_Trk30_eta2p1_MET80;
+    Bool_t          HLT_LooseIsoPFTau50_Trk30_eta2p1_MET90;
+    Bool_t          HLT_LooseIsoPFTau50_Trk30_eta2p1_MET110;
+    Bool_t          HLT_LooseIsoPFTau50_Trk30_eta2p1_MET120;
+    Bool_t          HLT_PFTau120_eta2p1;
+    Bool_t          HLT_PFTau140_eta2p1;
+    Bool_t          HLT_VLooseIsoPFTau120_Trk50_eta2p1;
+    Bool_t          HLT_VLooseIsoPFTau140_Trk50_eta2p1;
+    Bool_t          HLT_Mu17_Mu8;
+    Bool_t          HLT_Mu17_Mu8_DZ;
+    Bool_t          HLT_Mu17_Mu8_SameSign;
+    Bool_t          HLT_Mu17_Mu8_SameSign_DZ;
+    Bool_t          HLT_Mu20_Mu10;
+    Bool_t          HLT_Mu20_Mu10_DZ;
+    Bool_t          HLT_Mu20_Mu10_SameSign;
+    Bool_t          HLT_Mu20_Mu10_SameSign_DZ;
+    Bool_t          HLT_Mu17_TkMu8_DZ;
+    Bool_t          HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL;
+    Bool_t          HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ;
+    Bool_t          HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL;
+    Bool_t          HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ;
+    Bool_t          HLT_Mu25_TkMu0_dEta18_Onia;
+    Bool_t          HLT_Mu27_TkMu8;
+    Bool_t          HLT_Mu30_TkMu11;
+    Bool_t          HLT_Mu30_eta2p1_PFJet150_PFJet50;
+    Bool_t          HLT_Mu40_TkMu11;
+    Bool_t          HLT_Mu40_eta2p1_PFJet200_PFJet50;
+    Bool_t          HLT_Mu20;
+    Bool_t          HLT_TkMu17;
+    Bool_t          HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL;
+    Bool_t          HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ;
+    Bool_t          HLT_TkMu20;
+    Bool_t          HLT_Mu24_eta2p1;
+    Bool_t          HLT_TkMu24_eta2p1;
+    Bool_t          HLT_Mu27;
+    Bool_t          HLT_TkMu27;
+    Bool_t          HLT_Mu45_eta2p1;
+    Bool_t          HLT_Mu50;
+    Bool_t          HLT_TkMu50;
+    Bool_t          HLT_Mu38NoFiltersNoVtx_Photon38_CaloIdL;
+    Bool_t          HLT_Mu42NoFiltersNoVtx_Photon42_CaloIdL;
+    Bool_t          HLT_Mu28NoFiltersNoVtxDisplaced_Photon28_CaloIdL;
+    Bool_t          HLT_Mu33NoFiltersNoVtxDisplaced_Photon33_CaloIdL;
+    Bool_t          HLT_Mu23NoFiltersNoVtx_Photon23_CaloIdL;
+    Bool_t          HLT_DoubleMu18NoFiltersNoVtx;
+    Bool_t          HLT_Mu33NoFiltersNoVtxDisplaced_DisplacedJet50_Tight;
+    Bool_t          HLT_Mu33NoFiltersNoVtxDisplaced_DisplacedJet50_Loose;
+    Bool_t          HLT_Mu28NoFiltersNoVtx_DisplacedJet40_Loose;
+    Bool_t          HLT_Mu38NoFiltersNoVtxDisplaced_DisplacedJet60_Tight;
+    Bool_t          HLT_Mu38NoFiltersNoVtxDisplaced_DisplacedJet60_Loose;
+    Bool_t          HLT_Mu38NoFiltersNoVtx_DisplacedJet60_Loose;
+    Bool_t          HLT_Mu28NoFiltersNoVtx_CentralCaloJet40;
+    Bool_t          HLT_PFHT300_PFMET100;
+    Bool_t          HLT_PFHT300_PFMET110;
+    Bool_t          HLT_PFHT550_4JetPt50;
+    Bool_t          HLT_PFHT650_4JetPt50;
+    Bool_t          HLT_PFHT750_4JetPt50;
+    Bool_t          HLT_PFHT750_4JetPt70;
+    Bool_t          HLT_PFHT750_4JetPt80;
+    Bool_t          HLT_PFHT800_4JetPt50;
+    Bool_t          HLT_PFHT850_4JetPt50;
+    Bool_t          HLT_PFJet15_NoCaloMatched;
+    Bool_t          HLT_PFJet25_NoCaloMatched;
+    Bool_t          HLT_DiPFJet15_NoCaloMatched;
+    Bool_t          HLT_DiPFJet25_NoCaloMatched;
+    Bool_t          HLT_DiPFJet15_FBEta3_NoCaloMatched;
+    Bool_t          HLT_DiPFJet25_FBEta3_NoCaloMatched;
+    Bool_t          HLT_DiPFJetAve15_HFJEC;
+    Bool_t          HLT_DiPFJetAve25_HFJEC;
+    Bool_t          HLT_DiPFJetAve35_HFJEC;
+    Bool_t          HLT_AK8PFJet40;
+    Bool_t          HLT_AK8PFJet60;
+    Bool_t          HLT_AK8PFJet80;
+    Bool_t          HLT_AK8PFJet140;
+    Bool_t          HLT_AK8PFJet200;
+    Bool_t          HLT_AK8PFJet260;
+    Bool_t          HLT_AK8PFJet320;
+    Bool_t          HLT_AK8PFJet400;
+    Bool_t          HLT_AK8PFJet450;
+    Bool_t          HLT_AK8PFJet500;
+    Bool_t          HLT_PFJet40;
+    Bool_t          HLT_PFJet60;
+    Bool_t          HLT_PFJet80;
+    Bool_t          HLT_PFJet140;
+    Bool_t          HLT_PFJet200;
+    Bool_t          HLT_PFJet260;
+    Bool_t          HLT_PFJet320;
+    Bool_t          HLT_PFJet400;
+    Bool_t          HLT_PFJet450;
+    Bool_t          HLT_PFJet500;
+    Bool_t          HLT_DiPFJetAve40;
+    Bool_t          HLT_DiPFJetAve60;
+    Bool_t          HLT_DiPFJetAve80;
+    Bool_t          HLT_DiPFJetAve140;
+    Bool_t          HLT_DiPFJetAve200;
+    Bool_t          HLT_DiPFJetAve260;
+    Bool_t          HLT_DiPFJetAve320;
+    Bool_t          HLT_DiPFJetAve400;
+    Bool_t          HLT_DiPFJetAve500;
+    Bool_t          HLT_DiPFJetAve60_HFJEC;
+    Bool_t          HLT_DiPFJetAve80_HFJEC;
+    Bool_t          HLT_DiPFJetAve100_HFJEC;
+    Bool_t          HLT_DiPFJetAve160_HFJEC;
+    Bool_t          HLT_DiPFJetAve220_HFJEC;
+    Bool_t          HLT_DiPFJetAve300_HFJEC;
+    Bool_t          HLT_DiPFJet40_DEta3p5_MJJ600_PFMETNoMu140;
+    Bool_t          HLT_DiPFJet40_DEta3p5_MJJ600_PFMETNoMu80;
+    Bool_t          HLT_DiCentralPFJet170;
+    Bool_t          HLT_SingleCentralPFJet170_CFMax0p1;
+    Bool_t          HLT_DiCentralPFJet170_CFMax0p1;
+    Bool_t          HLT_DiCentralPFJet220_CFMax0p3;
+    Bool_t          HLT_DiCentralPFJet330_CFMax0p5;
+    Bool_t          HLT_DiCentralPFJet430;
+    Bool_t          HLT_PFHT125;
+    Bool_t          HLT_PFHT200;
+    Bool_t          HLT_PFHT250;
+    Bool_t          HLT_PFHT300;
+    Bool_t          HLT_PFHT350;
+    Bool_t          HLT_PFHT400;
+    Bool_t          HLT_PFHT475;
+    Bool_t          HLT_PFHT600;
+    Bool_t          HLT_PFHT650;
+    Bool_t          HLT_PFHT800;
+    Bool_t          HLT_PFHT900;
+    Bool_t          HLT_PFHT200_PFAlphaT0p51;
+    Bool_t          HLT_PFHT200_DiPFJetAve90_PFAlphaT0p57;
+    Bool_t          HLT_PFHT200_DiPFJetAve90_PFAlphaT0p63;
+    Bool_t          HLT_PFHT250_DiPFJetAve90_PFAlphaT0p55;
+    Bool_t          HLT_PFHT250_DiPFJetAve90_PFAlphaT0p58;
+    Bool_t          HLT_PFHT300_DiPFJetAve90_PFAlphaT0p53;
+    Bool_t          HLT_PFHT300_DiPFJetAve90_PFAlphaT0p54;
+    Bool_t          HLT_PFHT350_DiPFJetAve90_PFAlphaT0p52;
+    Bool_t          HLT_PFHT350_DiPFJetAve90_PFAlphaT0p53;
+    Bool_t          HLT_PFHT400_DiPFJetAve90_PFAlphaT0p51;
+    Bool_t          HLT_PFHT400_DiPFJetAve90_PFAlphaT0p52;
+    Bool_t          HLT_MET60_IsoTrk35_Loose;
+    Bool_t          HLT_MET75_IsoTrk50;
+    Bool_t          HLT_MET90_IsoTrk50;
+    Bool_t          HLT_PFMET120_BTagCSV_p067;
+    Bool_t          HLT_PFMET120_Mu5;
+    Bool_t          HLT_PFMET170_NotCleaned;
+    Bool_t          HLT_PFMET170_NoiseCleaned;
+    Bool_t          HLT_PFMET170_HBHECleaned;
+    Bool_t          HLT_PFMET170_JetIdCleaned;
+    Bool_t          HLT_PFMET170_BeamHaloCleaned;
+    Bool_t          HLT_PFMET170_HBHE_BeamHaloCleaned;
+    Bool_t          HLT_PFMETTypeOne190_HBHE_BeamHaloCleaned;
+    Bool_t          HLT_PFMET90_PFMHT90_IDTight;
+    Bool_t          HLT_PFMET100_PFMHT100_IDTight;
+    Bool_t          HLT_PFMET100_PFMHT100_IDTight_BeamHaloCleaned;
+    Bool_t          HLT_PFMET110_PFMHT110_IDTight;
+    Bool_t          HLT_PFMET120_PFMHT120_IDTight;
+    Bool_t          HLT_CaloMHTNoPU90_PFMET90_PFMHT90_IDTight_BTagCSV_p067;
+    Bool_t          HLT_CaloMHTNoPU90_PFMET90_PFMHT90_IDTight;
+    Bool_t          HLT_QuadPFJet_BTagCSV_p016_p11_VBF_Mqq200;
+    Bool_t          HLT_QuadPFJet_BTagCSV_p016_VBF_Mqq460;
+    Bool_t          HLT_QuadPFJet_BTagCSV_p016_p11_VBF_Mqq240;
+    Bool_t          HLT_QuadPFJet_BTagCSV_p016_VBF_Mqq500;
+    Bool_t          HLT_QuadPFJet_VBF;
+    Bool_t          HLT_L1_TripleJet_VBF;
+    Bool_t          HLT_QuadJet45_TripleBTagCSV_p087;
+    Bool_t          HLT_QuadJet45_DoubleBTagCSV_p087;
+    Bool_t          HLT_DoubleJet90_Double30_TripleBTagCSV_p087;
+    Bool_t          HLT_DoubleJet90_Double30_DoubleBTagCSV_p087;
+    Bool_t          HLT_DoubleJetsC100_DoubleBTagCSV_p026_DoublePFJetsC160;
+    Bool_t          HLT_DoubleJetsC100_DoubleBTagCSV_p014_DoublePFJetsC100MaxDeta1p6;
+    Bool_t          HLT_DoubleJetsC112_DoubleBTagCSV_p026_DoublePFJetsC172;
+    Bool_t          HLT_DoubleJetsC112_DoubleBTagCSV_p014_DoublePFJetsC112MaxDeta1p6;
+    Bool_t          HLT_DoubleJetsC100_SingleBTagCSV_p026;
+    Bool_t          HLT_DoubleJetsC100_SingleBTagCSV_p014;
+    Bool_t          HLT_DoubleJetsC100_SingleBTagCSV_p026_SinglePFJetC350;
+    Bool_t          HLT_DoubleJetsC100_SingleBTagCSV_p014_SinglePFJetC350;
+    Bool_t          HLT_Photon135_PFMET100;
+    Bool_t          HLT_Photon20_CaloIdVL_IsoL;
+    Bool_t          HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_PFMET40;
+    Bool_t          HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_VBF;
+    Bool_t          HLT_Photon250_NoHE;
+    Bool_t          HLT_Photon300_NoHE;
+    Bool_t          HLT_Photon26_R9Id85_OR_CaloId24b40e_Iso50T80L_Photon16_AND_HE10_R9Id65_Eta2_Mass60;
+    Bool_t          HLT_Photon36_R9Id85_OR_CaloId24b40e_Iso50T80L_Photon22_AND_HE10_R9Id65_Eta2_Mass15;
+    Bool_t          HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_PFMET40;
+    Bool_t          HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_VBF;
+    Bool_t          HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_PFMET40;
+    Bool_t          HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_VBF;
+    Bool_t          HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_PFMET40;
+    Bool_t          HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_VBF;
+    Bool_t          HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_PFMET40;
+    Bool_t          HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_VBF;
+    Bool_t          HLT_Photon120_R9Id90_HE10_Iso40_EBOnly_PFMET40;
+    Bool_t          HLT_Photon120_R9Id90_HE10_Iso40_EBOnly_VBF;
+    Bool_t          HLT_Mu8_TrkIsoVVL;
+    Bool_t          HLT_Mu17_TrkIsoVVL;
+    Bool_t          HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30;
+    Bool_t          HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30;
+    Bool_t          HLT_Ele17_CaloIdL_TrackIdL_IsoVL_PFJet30;
+    Bool_t          HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30;
+    Bool_t          HLT_BTagMu_DiJet20_Mu5;
+    Bool_t          HLT_BTagMu_DiJet40_Mu5;
+    Bool_t          HLT_BTagMu_DiJet70_Mu5;
+    Bool_t          HLT_BTagMu_DiJet110_Mu5;
+    Bool_t          HLT_BTagMu_DiJet170_Mu5;
+    Bool_t          HLT_BTagMu_Jet300_Mu5;
+    Bool_t          HLT_BTagMu_AK8Jet300_Mu5;
+    Bool_t          HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
+    Bool_t          HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_L1JetTauSeeded;
+    Bool_t          HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
+    Bool_t          HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL;
+    Bool_t          HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
+    Bool_t          HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
+    Bool_t          HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ;
+    Bool_t          HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
+    Bool_t          HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL;
+    Bool_t          HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL;
+    Bool_t          HLT_Mu37_Ele27_CaloIdL_GsfTrkIdVL;
+    Bool_t          HLT_Mu27_Ele37_CaloIdL_GsfTrkIdVL;
+    Bool_t          HLT_Mu8_DiEle12_CaloIdL_TrackIdL;
+    Bool_t          HLT_Mu12_Photon25_CaloIdL;
+    Bool_t          HLT_Mu12_Photon25_CaloIdL_L1ISO;
+    Bool_t          HLT_Mu12_Photon25_CaloIdL_L1OR;
+    Bool_t          HLT_Mu17_Photon22_CaloIdL_L1ISO;
+    Bool_t          HLT_Mu17_Photon30_CaloIdL_L1ISO;
+    Bool_t          HLT_Mu17_Photon35_CaloIdL_L1ISO;
+    Bool_t          HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
+    Bool_t          HLT_TripleMu_5_3_3;
+    Bool_t          HLT_TripleMu_12_10_5;
+    Bool_t          HLT_Mu3er_PFHT140_PFMET125;
+    Bool_t          HLT_Mu6_PFHT200_PFMET80_BTagCSV_p067;
+    Bool_t          HLT_Mu6_PFHT200_PFMET100;
+    Bool_t          HLT_Mu14er_PFMET100;
+    Bool_t          HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Ele12_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Ele17_CaloIdL_GsfTrkIdVL;
+    Bool_t          HLT_Ele17_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_Ele23_CaloIdL_TrackIdL_IsoVL;
+    Bool_t          HLT_PFHT650_WideJetMJJ900DEtaJJ1p5;
+    Bool_t          HLT_PFHT650_WideJetMJJ950DEtaJJ1p5;
+    Bool_t          HLT_Photon22;
+    Bool_t          HLT_Photon30;
+    Bool_t          HLT_Photon36;
+    Bool_t          HLT_Photon50;
+    Bool_t          HLT_Photon75;
+    Bool_t          HLT_Photon90;
+    Bool_t          HLT_Photon120;
+    Bool_t          HLT_Photon175;
+    Bool_t          HLT_Photon165_HE10;
+    Bool_t          HLT_Photon22_R9Id90_HE10_IsoM;
+    Bool_t          HLT_Photon30_R9Id90_HE10_IsoM;
+    Bool_t          HLT_Photon36_R9Id90_HE10_IsoM;
+    Bool_t          HLT_Photon50_R9Id90_HE10_IsoM;
+    Bool_t          HLT_Photon75_R9Id90_HE10_IsoM;
+    Bool_t          HLT_Photon90_R9Id90_HE10_IsoM;
+    Bool_t          HLT_Photon120_R9Id90_HE10_IsoM;
+    Bool_t          HLT_Photon165_R9Id90_HE10_IsoM;
+    Bool_t          HLT_Diphoton30_18_R9Id_OR_IsoCaloId_AND_HE_R9Id_Mass90;
+    Bool_t          HLT_Diphoton30_18_R9Id_OR_IsoCaloId_AND_HE_R9Id_DoublePixelSeedMatch_Mass70;
+    Bool_t          HLT_Diphoton30PV_18PV_R9Id_AND_IsoCaloId_AND_HE_R9Id_DoublePixelVeto_Mass55;
+    Bool_t          HLT_Diphoton30_18_Solid_R9Id_AND_IsoCaloId_AND_HE_R9Id_Mass55;
+    Bool_t          HLT_Diphoton30EB_18EB_R9Id_OR_IsoCaloId_AND_HE_R9Id_DoublePixelVeto_Mass55;
+    Bool_t          HLT_Dimuon0_Jpsi_Muon;
+    Bool_t          HLT_Dimuon0_Upsilon_Muon;
+    Bool_t          HLT_QuadMuon0_Dimuon0_Jpsi;
+    Bool_t          HLT_QuadMuon0_Dimuon0_Upsilon;
+    Bool_t          HLT_Rsq0p25_Calo;
+    Bool_t          HLT_RsqMR240_Rsq0p09_MR200_4jet_Calo;
+    Bool_t          HLT_RsqMR240_Rsq0p09_MR200_Calo;
+    Bool_t          HLT_Rsq0p25;
+    Bool_t          HLT_Rsq0p30;
+    Bool_t          HLT_RsqMR240_Rsq0p09_MR200;
+    Bool_t          HLT_RsqMR240_Rsq0p09_MR200_4jet;
+    Bool_t          HLT_RsqMR270_Rsq0p09_MR200;
+    Bool_t          HLT_RsqMR270_Rsq0p09_MR200_4jet;
+    Bool_t          HLT_Rsq0p02_MR300_TriPFJet80_60_40_BTagCSV_p063_p20_Mbb60_200;
+    Bool_t          HLT_Rsq0p02_MR400_TriPFJet80_60_40_DoubleBTagCSV_p063_Mbb60_200;
+    Bool_t          HLT_Rsq0p02_MR450_TriPFJet80_60_40_DoubleBTagCSV_p063_Mbb60_200;
+    Bool_t          HLT_Rsq0p02_MR500_TriPFJet80_60_40_DoubleBTagCSV_p063_Mbb60_200;
+    Bool_t          HLT_Rsq0p02_MR550_TriPFJet80_60_40_DoubleBTagCSV_p063_Mbb60_200;
+    Bool_t          HLT_HT200_DisplacedDijet40_DisplacedTrack;
+    Bool_t          HLT_HT250_DisplacedDijet40_DisplacedTrack;
+    Bool_t          HLT_HT350_DisplacedDijet40_DisplacedTrack;
+    Bool_t          HLT_HT350_DisplacedDijet80_DisplacedTrack;
+    Bool_t          HLT_HT350_DisplacedDijet80_Tight_DisplacedTrack;
+    Bool_t          HLT_HT350_DisplacedDijet40_Inclusive;
+    Bool_t          HLT_HT400_DisplacedDijet40_Inclusive;
+    Bool_t          HLT_HT500_DisplacedDijet40_Inclusive;
+    Bool_t          HLT_HT550_DisplacedDijet40_Inclusive;
+    Bool_t          HLT_HT550_DisplacedDijet80_Inclusive;
+    Bool_t          HLT_HT650_DisplacedDijet80_Inclusive;
+    Bool_t          HLT_HT750_DisplacedDijet80_Inclusive;
+    Bool_t          HLT_VBF_DisplacedJet40_DisplacedTrack;
+    Bool_t          HLT_VBF_DisplacedJet40_DisplacedTrack_2TrackIP2DSig5;
+    Bool_t          HLT_VBF_DisplacedJet40_TightID_DisplacedTrack;
+    Bool_t          HLT_VBF_DisplacedJet40_Hadronic;
+    Bool_t          HLT_VBF_DisplacedJet40_Hadronic_2PromptTrack;
+    Bool_t          HLT_VBF_DisplacedJet40_TightID_Hadronic;
+    Bool_t          HLT_VBF_DisplacedJet40_VTightID_Hadronic;
+    Bool_t          HLT_VBF_DisplacedJet40_VVTightID_Hadronic;
+    Bool_t          HLT_VBF_DisplacedJet40_VTightID_DisplacedTrack;
+    Bool_t          HLT_VBF_DisplacedJet40_VVTightID_DisplacedTrack;
+    Bool_t          HLT_PFMETNoMu90_PFMHTNoMu90_IDTight;
+    Bool_t          HLT_PFMETNoMu100_PFMHTNoMu100_IDTight;
+    Bool_t          HLT_PFMETNoMu110_PFMHTNoMu110_IDTight;
+    Bool_t          HLT_PFMETNoMu120_PFMHTNoMu120_IDTight;
+    Bool_t          HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90_IDTight;
+    Bool_t          HLT_MonoCentralPFJet80_PFMETNoMu100_PFMHTNoMu100_IDTight;
+    Bool_t          HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight;
+    Bool_t          HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight;
+    Bool_t          HLT_Ele27_eta2p1_WPLoose_Gsf_HT200;
+    Bool_t          HLT_Photon90_CaloIdL_PFHT500;
+    Bool_t          HLT_DoubleMu8_Mass8_PFHT250;
+    Bool_t          HLT_Mu8_Ele8_CaloIdM_TrackIdM_Mass8_PFHT250;
+    Bool_t          HLT_DoubleEle8_CaloIdM_TrackIdM_Mass8_PFHT250;
+    Bool_t          HLT_DoubleMu8_Mass8_PFHT300;
+    Bool_t          HLT_Mu8_Ele8_CaloIdM_TrackIdM_Mass8_PFHT300;
+    Bool_t          HLT_DoubleEle8_CaloIdM_TrackIdM_Mass8_PFHT300;
+    Bool_t          HLT_Mu10_CentralPFJet30_BTagCSV_p13;
+    Bool_t          HLT_DoubleMu3_PFMET50;
+    Bool_t          HLT_Ele10_CaloIdM_TrackIdM_CentralPFJet30_BTagCSV_p13;
+    Bool_t          HLT_Ele15_IsoVVVL_BTagCSV_p067_PFHT400;
+    Bool_t          HLT_Ele15_IsoVVVL_PFHT350_PFMET50;
+    Bool_t          HLT_Ele15_IsoVVVL_PFHT600;
+    Bool_t          HLT_Ele15_IsoVVVL_PFHT350;
+    Bool_t          HLT_Ele15_IsoVVVL_PFHT400_PFMET50;
+    Bool_t          HLT_Ele15_IsoVVVL_PFHT400;
+    Bool_t          HLT_Ele50_IsoVVVL_PFHT400;
+    Bool_t          HLT_Mu8_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT300_PFMETNoMu60;
+    Bool_t          HLT_Mu10_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT350_PFMETNoMu60;
+    Bool_t          HLT_Mu15_IsoVVVL_BTagCSV_p067_PFHT400;
+    Bool_t          HLT_Mu15_IsoVVVL_PFHT350_PFMET50;
+    Bool_t          HLT_Mu15_IsoVVVL_PFHT600;
+    Bool_t          HLT_Mu15_IsoVVVL_PFHT350;
+    Bool_t          HLT_Mu15_IsoVVVL_PFHT400_PFMET50;
+    Bool_t          HLT_Mu15_IsoVVVL_PFHT400;
+    Bool_t          HLT_Mu50_IsoVVVL_PFHT400;
+    Bool_t          HLT_Dimuon16_Jpsi;
+    Bool_t          HLT_Dimuon10_Jpsi_Barrel;
+    Bool_t          HLT_Dimuon8_PsiPrime_Barrel;
+    Bool_t          HLT_Dimuon8_Upsilon_Barrel;
+    Bool_t          HLT_Dimuon0_Phi_Barrel;
+    Bool_t          HLT_Mu16_TkMu0_dEta18_Onia;
+    Bool_t          HLT_Mu16_TkMu0_dEta18_Phi;
+    Bool_t          HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx;
+    Bool_t          HLT_TrkMu17_DoubleTrkMu8NoFiltersNoVtx;
+    Bool_t          HLT_Mu8;
+    Bool_t          HLT_Mu17;
+    Bool_t          HLT_Mu3_PFJet40;
+    Bool_t          HLT_Ele8_CaloIdM_TrackIdM_PFJet30;
+    Bool_t          HLT_Ele12_CaloIdM_TrackIdM_PFJet30;
+    Bool_t          HLT_Ele17_CaloIdM_TrackIdM_PFJet30;
+    Bool_t          HLT_Ele23_CaloIdM_TrackIdM_PFJet30;
+    Bool_t          HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet140;
+    Bool_t          HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165;
+    Bool_t          HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
+    Bool_t          HLT_PFHT450_SixJet40_BTagCSV_p056;
+    Bool_t          HLT_PFHT400_SixJet30;
+    Bool_t          HLT_PFHT450_SixJet40;
+    Bool_t          HLT_Ele115_CaloIdVT_GsfTrkIdT;
+    Bool_t          HLT_Mu55;
+    Bool_t          HLT_Photon42_R9Id85_OR_CaloId24b40e_Iso50T80L_Photon25_AND_HE10_R9Id65_Eta2_Mass15;
+    Bool_t          HLT_Photon90_CaloIdL_PFHT600;
+    Bool_t          HLT_PixelTracks_Multiplicity60ForEndOfFill;
+    Bool_t          HLT_PixelTracks_Multiplicity85ForEndOfFill;
+    Bool_t          HLT_PixelTracks_Multiplicity110ForEndOfFill;
+    Bool_t          HLT_PixelTracks_Multiplicity135ForEndOfFill;
+    Bool_t          HLT_PixelTracks_Multiplicity160ForEndOfFill;
+    Bool_t          HLT_FullTracks_Multiplicity80;
+    Bool_t          HLT_FullTracks_Multiplicity100;
+    Bool_t          HLT_FullTracks_Multiplicity130;
+    Bool_t          HLT_FullTracks_Multiplicity150;
+    Bool_t          HLT_ECALHT800;
+    Bool_t          HLT_DiSC30_18_EIso_AND_HE_Mass70;
+    Bool_t          HLT_Photon125;
+    Bool_t          HLT_MET100;
+    Bool_t          HLT_MET150;
+    Bool_t          HLT_MET200;
+    Bool_t          HLT_Ele27_HighEta_Ele20_Mass55;
+    Bool_t          HLT_L1FatEvents;
+    Bool_t          HLT_Physics;
+    Bool_t          HLT_L1FatEvents_part0;
+    Bool_t          HLT_L1FatEvents_part1;
+    Bool_t          HLT_L1FatEvents_part2;
+    Bool_t          HLT_L1FatEvents_part3;
+    Bool_t          HLT_Random;
+    Bool_t          HLT_ZeroBias;
+    Bool_t          HLT_AK4CaloJet30;
+    Bool_t          HLT_AK4CaloJet40;
+    Bool_t          HLT_AK4CaloJet50;
+    Bool_t          HLT_AK4CaloJet80;
+    Bool_t          HLT_AK4CaloJet100;
+    Bool_t          HLT_AK4PFJet30;
+    Bool_t          HLT_AK4PFJet50;
+    Bool_t          HLT_AK4PFJet80;
+    Bool_t          HLT_AK4PFJet100;
+    Bool_t          HLT_HISinglePhoton10;
+    Bool_t          HLT_HISinglePhoton15;
+    Bool_t          HLT_HISinglePhoton20;
+    Bool_t          HLT_HISinglePhoton40;
+    Bool_t          HLT_HISinglePhoton60;
+    Bool_t          HLT_EcalCalibration;
+    Bool_t          HLT_HcalCalibration;
+    Bool_t          HLT_GlobalRunHPDNoise;
+    Bool_t          HLT_L1BptxMinus;
+    Bool_t          HLT_L1BptxPlus;
+    Bool_t          HLT_L1NotBptxOR;
+    Bool_t          HLT_L1BeamGasMinus;
+    Bool_t          HLT_L1BeamGasPlus;
+    Bool_t          HLT_L1BptxXOR;
+    Bool_t          HLT_L1MinimumBiasHF_OR;
+    Bool_t          HLT_L1MinimumBiasHF_AND;
+    Bool_t          HLT_HcalNZS;
+    Bool_t          HLT_HcalPhiSym;
+    Bool_t          HLT_HcalIsolatedbunch;
+    Bool_t          HLT_ZeroBias_FirstCollisionAfterAbortGap;
+    Bool_t          HLT_ZeroBias_FirstCollisionAfterAbortGap_copy;
+    Bool_t          HLT_ZeroBias_FirstCollisionAfterAbortGap_TCDS;
+    Bool_t          HLT_ZeroBias_IsolatedBunches;
+    Bool_t          HLT_ZeroBias_FirstCollisionInTrain;
+    Bool_t          HLT_ZeroBias_FirstBXAfterTrain;
+    Bool_t          HLT_Photon500;
+    Bool_t          HLT_Photon600;
+    Bool_t          HLT_Mu300;
+    Bool_t          HLT_Mu350;
+    Bool_t          HLT_MET250;
+    Bool_t          HLT_MET300;
+    Bool_t          HLT_MET600;
+    Bool_t          HLT_MET700;
+    Bool_t          HLT_PFMET300;
+    Bool_t          HLT_PFMET400;
+    Bool_t          HLT_PFMET500;
+    Bool_t          HLT_PFMET600;
+    Bool_t          HLT_Ele250_CaloIdVT_GsfTrkIdT;
+    Bool_t          HLT_Ele300_CaloIdVT_GsfTrkIdT;
+    Bool_t          HLT_HT2000;
+    Bool_t          HLT_HT2500;
+    Bool_t          HLT_IsoTrackHE;
+    Bool_t          HLT_IsoTrackHB;
+    Bool_t          HLTriggerFinalPath;
+    Bool_t          Flag_HBHENoiseFilter;
+    Bool_t          Flag_HBHENoiseIsoFilter;
+    Bool_t          Flag_CSCTightHaloFilter;
+    Bool_t          Flag_CSCTightHaloTrkMuUnvetoFilter;
+    Bool_t          Flag_CSCTightHalo2015Filter;
+    Bool_t          Flag_globalTightHalo2016Filter;
+    Bool_t          Flag_globalSuperTightHalo2016Filter;
+    Bool_t          Flag_HcalStripHaloFilter;
+    Bool_t          Flag_hcalLaserEventFilter;
+    Bool_t          Flag_EcalDeadCellTriggerPrimitiveFilter;
+    Bool_t          Flag_EcalDeadCellBoundaryEnergyFilter;
+    Bool_t          Flag_goodVertices;
+    Bool_t          Flag_eeBadScFilter;
+    Bool_t          Flag_ecalLaserCorrFilter;
+    Bool_t          Flag_trkPOGFilters;
+    Bool_t          Flag_chargedHadronTrackResolutionFilter;
+    Bool_t          Flag_muonBadTrackFilter;
+    Bool_t          Flag_trkPOG_manystripclus53X;
+    Bool_t          Flag_trkPOG_toomanystripclus53X;
+    Bool_t          Flag_trkPOG_logErrorTooManyClusters;
+    Bool_t          Flag_METFilters;
 
 
     TTree* EventTree;
@@ -1039,7 +1070,7 @@ void EventLoop(){
 
     for(int iev=0; iev<eventLoopMax;++iev){
         EventTree->GetEvent(iev);
-        if(iev % 1000 == 0) cout<<cur_time()<<"\tProcessing event: "<<iev <<" / "<<eventLoopMax<<endl;
+        if(iev % 10000 == 0) cout<<cur_time()<<"\tProcessing event: "<<iev <<" / "<<eventLoopMax<<endl;
 
 
         h_CaloMET_phi->Fill(CaloMET_phi);
@@ -1048,26 +1079,26 @@ void EventLoop(){
 
         for(int iElectron=0; iElectron<nElectron; iElectron++){
 
-            h_Electron_eta ->Fill(Electron_eta.at(iElectron));
-            h_Electron_hoe ->Fill(Electron_hoe.at(iElectron)); 
-            h_Electron_mass ->Fill(Electron_mass.at(iElectron));
-            h_Electron_phi ->Fill(Electron_phi.at(iElectron));
-            h_Electron_pt ->Fill(Electron_pt.at(iElectron));
-            h_Electron_r9 ->Fill(Electron_r9.at(iElectron));
-            h_Electron_sieie ->Fill(Electron_sieie.at(iElectron));
+            h_Electron_eta ->Fill(Electron_eta[iElectron]);
+            h_Electron_hoe ->Fill(Electron_hoe[iElectron]); 
+            h_Electron_mass ->Fill(Electron_mass[iElectron]);
+            h_Electron_phi ->Fill(Electron_phi[iElectron]);
+            h_Electron_pt ->Fill(Electron_pt[iElectron]);
+            h_Electron_r9 ->Fill(Electron_r9[iElectron]);
+            h_Electron_sieie ->Fill(Electron_sieie[iElectron]);
         }
         for(int iMuon=0; iMuon<nMuon; iMuon++){
 
-            h_Muon_eta  ->Fill(Muon_eta.at(iMuon));
-            h_Muon_mass ->Fill(Muon_mass.at(iMuon));
-            h_Muon_phi ->Fill(Muon_phi.at(iMuon));
-            h_Muon_pt ->Fill(Muon_pt.at(iMuon));
+            h_Muon_eta  ->Fill(Muon_eta[iMuon]);
+            h_Muon_mass ->Fill(Muon_mass[iMuon]);
+            h_Muon_phi ->Fill(Muon_phi[iMuon]);
+            h_Muon_pt ->Fill(Muon_pt[iMuon]);
         }
         for(int iJet=0; iJet<nJet; iJet++){
-            h_Jet_eta ->Fill(Jet_eta.at(iJet));
-            h_Jet_mass ->Fill(Jet_mass.at(iJet));
-            h_Jet_phi ->Fill(Jet_phi.at(iJet));
-            h_Jet_pt ->Fill(Jet_pt.at(iJet));
+            h_Jet_eta ->Fill(Jet_eta[iJet]);
+            h_Jet_mass ->Fill(Jet_mass[iJet]);
+            h_Jet_phi ->Fill(Jet_phi[iJet]);
+            h_Jet_pt ->Fill(Jet_pt[iJet]);
         }
 
 
@@ -1077,35 +1108,35 @@ void EventLoop(){
 
 void InitHistograms(){
 
-    h_CaloMET_phi = new TH1F("h_CaloMET_phi","h_CaloMET_phi", 200, 0, 200);
+    h_CaloMET_phi = new TH1F("h_CaloMET_phi","h_CaloMET_phi", 200, -3.5, 3.5);
     h_CaloMET_pt = new TH1F("h_CaloMET_pt","h_CaloMET_pt", 200, 0, 200);
     h_CaloMET_sumEt = new TH1F("h_CaloMET_sumEt","h_CaloMET_sumEt", 200, 0, 200);
 
     h_Electron_eta = new TH1F("h_Electron_eta","h_Electron_eta", 200, -5.0, 5.0);
     h_Electron_hoe = new TH1F("h_Electron_hoe","h_Electron_hoe", 200, 0, 200);
     h_Electron_mass = new TH1F("h_Electron_mass","h_Electron_mass", 200, 0, 200);
-    h_Electron_phi = new TH1F("h_Electron_phi","h_Electron_phi", 200, 0, 200);
+    h_Electron_phi = new TH1F("h_Electron_phi","h_Electron_phi", 200, -3.5, 3.5);
     h_Electron_pt = new TH1F("h_Electron_pt","h_Electron_pt", 200, 0, 200);
     h_Electron_r9 = new TH1F("h_Electron_r9","h_Electron_r9", 200, 0, 200);
     h_Electron_sieie = new TH1F("h_Electron_sieie","h_Electron_sieie", 200, 0, 200);
 
-    h_Muon_eta = new TH1F("Muon_eta","Muon_eta", 200, 0, 200);
+    h_Muon_eta = new TH1F("Muon_eta","Muon_eta", 200, -5.0, 5.0);
     h_Muon_mass = new TH1F("h_Muon_mass","h_Muon_mass", 200, 0, 200);
-    h_Muon_phi = new TH1F("h_Muon_phi","h_Muon_phi", 200, 0, 200);
+    h_Muon_phi = new TH1F("h_Muon_phi","h_Muon_phi", 200, -3.5, 3.5);
     h_Muon_pt = new TH1F("h_Muon_pt","h_Muon_pt", 200, 0, 200);
 
-    h_Jet_eta = new TH1F("h_Jet_eta","h_Jet_eta", 200, 0, 200);
+    h_Jet_eta = new TH1F("h_Jet_eta","h_Jet_eta", 200, -5.0, 5.0);
     h_Jet_mass = new TH1F("h_Jet_mass","h_Jet_mass", 200, 0, 200);
-    h_Jet_phi = new TH1F("h_Jet_phi","h_Jet_phi", 200, 0, 200);
+    h_Jet_phi = new TH1F("h_Jet_phi","h_Jet_phi", 200, -3.5, 3.5);
     h_Jet_pt = new TH1F("h_Jet_pt","h_Jet_pt", 200, 0, 200);
     
 }
 
-void DrawPlot(TH1F plot, string name){
+void DrawPlot(TH1F* plot, string name){
 
     TCanvas *c1 = new TCanvas("c1","c1",3600,2400);
 
-    string outdir = "Output/Plots/EnvelopeFits_SepParams/";
+    string outdir = "./Output/ttHTobb/";
     setOutput(outdir);
 
     plot->Draw();
@@ -2137,6 +2168,4 @@ void ttHTobb(){
     InitHistograms();
     InitTree(inputFile.c_str()); 
     SaveHistograms();
-
-    fit_outfile.close();
 }
