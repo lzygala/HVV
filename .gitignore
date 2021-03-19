@@ -3,8 +3,8 @@
 **/.history
 
 EventGeneration/log/*.log
-EventGeneration/error/*.error
-EventGeneration/output/*.output
+EventGeneration/error/*.err
+EventGeneration/output/*.out
 
 Analyzers/*.pcm
 Analyzers/*.so
