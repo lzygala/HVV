@@ -9,7 +9,7 @@ tar -xzf MG5_aMC_v2_9_2.tar.gz
 cd MG5_aMC_v2_9_2/pp_hvvjj/
 
 echo -e "evaluate"
-python2.7 ./bin/generate_events 
+python2.7 ./bin/generate_events -f 
 
 JOBID=$1;  
 
