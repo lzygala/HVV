@@ -6,8 +6,6 @@
 #include<TSystem.h>
 #include<TTree.h>
 #include<TVector2.h>
-#include<Math/Vector4D.h>
-#include <Math/GenVector/LorentzVector.h>
 
 #include<TCanvas.h>
 #include<TF1.h>
@@ -43,49 +41,32 @@
 using namespace std;
 
 /* Variables */
+    int nSamples;
+    vector<string> sampleAddresses;
+    vector<string> sampleNames;
 
 
-    TH1F* h_CaloMET_phi;
-    TH1F* h_CaloMET_pt;
-    TH1F* h_CaloMET_sumEt;
+    vector<TH1F*> h_CaloMET_phi;
+    vector<TH1F*> h_CaloMET_pt;
+    vector<TH1F*> h_CaloMET_sumEt;
 
-    TH1F* h_Electron_eta;
-    TH1F* h_Electron_hoe;
-    TH1F* h_Electron_mass;
-    TH1F* h_Electron_phi;
-    TH1F* h_Electron_pt;
-    TH1F* h_Electron_r9;
-    TH1F* h_Electron_sieie;
+    vector<TH1F*> h_Electron_eta;
+    vector<TH1F*> h_Electron_hoe;
+    vector<TH1F*> h_Electron_mass;
+    vector<TH1F*> h_Electron_phi;
+    vector<TH1F*> h_Electron_pt;
+    vector<TH1F*> h_Electron_r9;
+    vector<TH1F*> h_Electron_sieie;
 
-    TH1F* h_Muon_eta;
-    TH1F* h_Muon_mass;
-    TH1F* h_Muon_phi;
-    TH1F* h_Muon_pt;
+    vector<TH1F*> h_Muon_eta;
+    vector<TH1F*> h_Muon_mass;
+    vector<TH1F*> h_Muon_phi;
+    vector<TH1F*> h_Muon_pt;
 
-    TH1F* h_Jet_eta;
-    TH1F* h_Jet_mass;
-    TH1F* h_Jet_phi;
-    TH1F* h_Jet_pt;
-    TH1F* h_nJets;
-
-    TH1F* h_fatJet_eta;
-    TH1F* h_fatJet_mass;
-    TH1F* h_fatJet_phi;
-    TH1F* h_fatJet_pt;
-    TH1F* h_nFatJets;
-
-    TH1F* h_Leading_Jet_eta;
-    TH1F* h_Leading_Jet_mass;
-    TH1F* h_Leading_Jet_phi;
-    TH1F* h_Leading_Jet_pt;
-
-    TH1F* h_Trailing_Jet_eta;
-    TH1F* h_Trailing_Jet_mass;
-    TH1F* h_Trailing_Jet_phi;
-    TH1F* h_Trailing_Jet_pt;
-
-    TH1F* h_Jet_invariantMass;
-    TH1F* h_Jet_etaSeparation;
+    vector<TH1F*> h_Jet_eta;
+    vector<TH1F*> h_Jet_mass;
+    vector<TH1F*> h_Jet_phi;
+    vector<TH1F*> h_Jet_pt;
 
 
 /* Tree Values */
@@ -138,7 +119,6 @@ using namespace std;
     Bool_t          Electron_mvaSpring16GP_WP80[11];   //[nElectron]
     Bool_t          Electron_mvaSpring16GP_WP90[11];   //[nElectron]
     Bool_t          Electron_mvaSpring16HZZ_WPL[11];   //[nElectron]
-
     UInt_t          nFatJet;
     Float_t         FatJet_area[8];   //[nFatJet]
     Float_t         FatJet_btagCMVA[8];   //[nFatJet]
@@ -160,7 +140,6 @@ using namespace std;
     Int_t           FatJet_jetId[8];   //[nFatJet]
     Int_t           FatJet_subJetIdx1[8];   //[nFatJet]
     Int_t           FatJet_subJetIdx2[8];   //[nFatJet]
-    
     UInt_t          nGenJetAK8;
     Float_t         GenJetAK8_eta[8];   //[nGenJetAK8]
     Float_t         GenJetAK8_mass[8];   //[nGenJetAK8]
@@ -1088,7 +1067,7 @@ void setOutput(string path){
     return;
 }
 
-void EventLoop(){
+void EventLoop(int sampleIdx){
 //Loops over all events and fills histograms
     int eventLoopMax = EvMax;
 
@@ -1096,66 +1075,35 @@ void EventLoop(){
         EventTree->GetEvent(iev);
         if(iev % 10000 == 0) cout<<cur_time()<<"\tProcessing event: "<<iev <<" / "<<eventLoopMax<<endl;
 
-        int leadJetIdx = 0, trailJetIdx = -1;
 
-
-        h_CaloMET_phi->Fill(CaloMET_phi);
-        h_CaloMET_pt ->Fill(CaloMET_pt);
-        h_CaloMET_sumEt ->Fill(CaloMET_sumEt);
+        h_CaloMET_phi.at(sampleIdx)->Fill(CaloMET_phi);
+        h_CaloMET_pt.at(sampleIdx)->Fill(CaloMET_pt);
+        h_CaloMET_sumEt.at(sampleIdx)->Fill(CaloMET_sumEt);
 
         for(int iElectron=0; iElectron<nElectron; iElectron++){
 
-            h_Electron_eta ->Fill(Electron_eta[iElectron]);
-            h_Electron_hoe ->Fill(Electron_hoe[iElectron]); 
-            h_Electron_mass ->Fill(Electron_mass[iElectron]);
-            h_Electron_phi ->Fill(Electron_phi[iElectron]);
-            h_Electron_pt ->Fill(Electron_pt[iElectron]);
-            h_Electron_r9 ->Fill(Electron_r9[iElectron]);
-            h_Electron_sieie ->Fill(Electron_sieie[iElectron]);
+            h_Electron_eta.at(sampleIdx)->Fill(Electron_eta[iElectron]);
+            h_Electron_hoe.at(sampleIdx)->Fill(Electron_hoe[iElectron]); 
+            h_Electron_mass.at(sampleIdx)->Fill(Electron_mass[iElectron]);
+            h_Electron_phi.at(sampleIdx)->Fill(Electron_phi[iElectron]);
+            h_Electron_pt.at(sampleIdx)->Fill(Electron_pt[iElectron]);
+            h_Electron_r9.at(sampleIdx)->Fill(Electron_r9[iElectron]);
+            h_Electron_sieie.at(sampleIdx)->Fill(Electron_sieie[iElectron]);
         }
         for(int iMuon=0; iMuon<nMuon; iMuon++){
 
-            h_Muon_eta  ->Fill(Muon_eta[iMuon]);
-            h_Muon_mass ->Fill(Muon_mass[iMuon]);
-            h_Muon_phi ->Fill(Muon_phi[iMuon]);
-            h_Muon_pt ->Fill(Muon_pt[iMuon]);
+            h_Muon_eta .at(sampleIdx)->Fill(Muon_eta[iMuon]);
+            h_Muon_mass.at(sampleIdx)->Fill(Muon_mass[iMuon]);
+            h_Muon_phi.at(sampleIdx)->Fill(Muon_phi[iMuon]);
+            h_Muon_pt.at(sampleIdx)->Fill(Muon_pt[iMuon]);
         }
         for(int iJet=0; iJet<nJet; iJet++){
-            h_Jet_eta ->Fill(Jet_eta[iJet]);
-            h_Jet_mass ->Fill(Jet_mass[iJet]);
-            h_Jet_phi ->Fill(Jet_phi[iJet]);
-            h_Jet_pt ->Fill(Jet_pt[iJet]);
-
-            if(Jet_pt[iJet] > Jet_pt[leadJetIdx]){
-                trailJetIdx = leadJetIdx;
-                leadJetIdx = iJet;
-            }
-            if(trailJetIdx == -1 && Jet_pt[iJet] < Jet_pt[leadJetIdx])
-                trailJetIdx = iJet;
-            if(trailJetIdx != -1){
-                if(Jet_pt[iJet] < Jet_pt[leadJetIdx] && Jet_pt[iJet] > Jet_pt[trailJetIdx])
-                trailJetIdx = iJet;}
-
+            h_Jet_eta.at(sampleIdx)->Fill(Jet_eta[iJet]);
+            h_Jet_mass.at(sampleIdx)->Fill(Jet_mass[iJet]);
+            h_Jet_phi.at(sampleIdx)->Fill(Jet_phi[iJet]);
+            h_Jet_pt.at(sampleIdx)->Fill(Jet_pt[iJet]);
         }
 
-        h_Leading_Jet_eta ->Fill(Jet_eta[leadJetIdx]);
-        h_Leading_Jet_mass ->Fill(Jet_mass[leadJetIdx]);
-        h_Leading_Jet_phi ->Fill(Jet_phi[leadJetIdx]);
-        h_Leading_Jet_pt ->Fill(Jet_pt[leadJetIdx]);
-
-        h_Trailing_Jet_eta ->Fill(Jet_eta[trailJetIdx]);
-        h_Trailing_Jet_mass ->Fill(Jet_mass[trailJetIdx]);
-        h_Trailing_Jet_phi ->Fill(Jet_phi[trailJetIdx]);
-        h_Trailing_Jet_pt ->Fill(Jet_pt[trailJetIdx]);
-
-        //float invMass2Mu = sqrt( (pow(muMomentumH + muMomentumS,2)) - (pow(muPX,2) + pow(muPY,2) + pow(muPZ,2)));
-        ROOT::Math::PtEtaPhiMVector leadJet_p4(Jet_pt[leadJetIdx], Jet_eta[leadJetIdx], Jet_phi[leadJetIdx], Jet_mass[leadJetIdx]);
-        ROOT::Math::PtEtaPhiMVector trailJet_p4(Jet_pt[trailJetIdx], Jet_eta[trailJetIdx], Jet_phi[trailJetIdx], Jet_mass[trailJetIdx]);
-        ROOT::Math::PtEtaPhiMVector jetSum = leadJet_p4+trailJet_p4;
-        double invMass = sqrt(jetSum.Dot(jetSum));
-
-        h_Jet_invariantMass->Fill(invMass);
-        h_Jet_etaSeparation->Fill(fabs(Jet_eta[leadJetIdx] - Jet_eta[trailJetIdx]));
 
     }//event loop
     cout<<cur_time()<<"\tFinished Event Loop"<<endl;
@@ -1163,47 +1111,30 @@ void EventLoop(){
 
 void InitHistograms(){
 
-    h_CaloMET_phi = new TH1F("h_CaloMET_phi","h_CaloMET_phi", 200, -3.5, 3.5);
-    h_CaloMET_pt = new TH1F("h_CaloMET_pt","h_CaloMET_pt", 200, 0, 200);
-    h_CaloMET_sumEt = new TH1F("h_CaloMET_sumEt","h_CaloMET_sumEt", 500, 0, 1000);
+    for(int i=0; i<nSamples; i++){
 
-    h_Electron_eta = new TH1F("h_Electron_eta","h_Electron_eta", 200, -5.0, 5.0);
-    h_Electron_hoe = new TH1F("h_Electron_hoe","h_Electron_hoe", 200, 0, 5.0);
-    h_Electron_mass = new TH1F("h_Electron_mass","h_Electron_mass", 200, 0, 0.15);
-    h_Electron_phi = new TH1F("h_Electron_phi","h_Electron_phi", 200, -3.5, 3.5);
-    h_Electron_pt = new TH1F("h_Electron_pt","h_Electron_pt", 200, 0, 200);
-    h_Electron_r9 = new TH1F("h_Electron_r9","h_Electron_r9", 200, 0, 4.0);
-    h_Electron_sieie = new TH1F("h_Electron_sieie","h_Electron_sieie", 200, 0, 0.2);
+        h_CaloMET_phi[i] = new TH1F(("h_CaloMET_phi_"+to_string(i)).c_str(), ("h_CaloMET_phi_"+to_string(i)).c_str(), 200, -3.5, 3.5);
+        h_CaloMET_pt[i] = new TH1F(("h_CaloMET_pt_"+to_string(i)).c_str(), ("h_CaloMET_pt_"+to_string(i)).c_str(), 200, 0, 200);
+        h_CaloMET_sumEt[i] = new TH1F(("h_CaloMET_sumEt_"+to_string(i)).c_str(), ("h_CaloMET_sumEt_"+to_string(i)).c_str(), 500, 0, 1000);
 
-    h_Muon_eta = new TH1F("Muon_eta","Muon_eta", 200, -5.0, 5.0);
-    h_Muon_mass = new TH1F("h_Muon_mass","h_Muon_mass", 200, 0, 0.15);
-    h_Muon_phi = new TH1F("h_Muon_phi","h_Muon_phi", 200, -3.5, 3.5);
-    h_Muon_pt = new TH1F("h_Muon_pt","h_Muon_pt", 200, 0, 200);
+        h_Electron_eta[i] = new TH1F(("h_Electron_eta_"+to_string(i)).c_str(), ("h_Electron_eta_"+to_string(i)).c_str(), 200, -5.0, 5.0);
+        h_Electron_hoe[i] = new TH1F(("h_Electron_hoe_"+to_string(i)).c_str(), ("h_Electron_hoe_"+to_string(i)).c_str(), 200, 0, 5.0);
+        h_Electron_mass[i] = new TH1F(("h_Electron_mass_"+to_string(i)).c_str(), ("h_Electron_mass_"+to_string(i)).c_str(), 200, 0, 0.15);
+        h_Electron_phi[i] = new TH1F(("h_Electron_phi_"+to_string(i)).c_str(), ("h_Electron_phi_"+to_string(i)).c_str(), 200, -3.5, 3.5);
+        h_Electron_pt[i] = new TH1F(("h_Electron_pt_"+to_string(i)).c_str(), ("h_Electron_pt_"+to_string(i)).c_str(), 200, 0, 200);
+        h_Electron_r9[i] = new TH1F(("h_Electron_r9_"+to_string(i)).c_str(), ("h_Electron_r9_"+to_string(i)).c_str(), 200, 0, 4.0);
+        h_Electron_sieie[i] = new TH1F(("h_Electron_sieie_"+to_string(i)).c_str(), ("h_Electron_sieie_"+to_string(i)).c_str(), 200, 0, 0.2);
 
-    h_Jet_eta = new TH1F("h_Jet_eta","h_Jet_eta", 200, -5.0, 5.0);
-    h_Jet_mass = new TH1F("h_Jet_mass","h_Jet_mass", 200, 0, 200);
-    h_Jet_phi = new TH1F("h_Jet_phi","h_Jet_phi", 200, -3.5, 3.5);
-    h_Jet_pt = new TH1F("h_Jet_pt","h_Jet_pt", 200, 0, 200);
-    h_nJets = new TH1F("h_nJets","h_nJets", 50, 0.0, 50);
+        h_Muon_eta[i] = new TH1F(("h_Muon_eta_"+to_string(i)).c_str(), ("h_Muon_eta_"+to_string(i)).c_str(), 200, -5.0, 5.0);
+        h_Muon_mass[i] = new TH1F(("h_Muon_mass_"+to_string(i)).c_str(), ("h_Muon_mass_"+to_string(i)).c_str(), 200, 0, 0.15);
+        h_Muon_phi[i] = new TH1F(("h_Muon_phi_"+to_string(i)).c_str(), ("h_Muon_phi_"+to_string(i)).c_str(), 200, -3.5, 3.5);
+        h_Muon_pt[i] = new TH1F(("h_Muon_pt_"+to_string(i)).c_str(), ("h_Muon_pt_"+to_string(i)).c_str(), 200, 0, 200);
 
-    h_fatJet_eta = new TH1F("h_fatJet_eta","h_fatJet_eta", 200, -5.0, 5.0);
-    h_fatJet_mass = new TH1F("h_fatJet_mass","h_fatJet_mass", 200, 0, 200);
-    h_fatJet_phi = new TH1F("h_fatJet_phi","h_fatJet_phi", 200, -3.5, 3.5);
-    h_fatJet_pt = new TH1F("h_fatJet_pt","h_fatJet_pt", 200, 0, 200);
-    h_nFatJets = new TH1F("h_nFatJets","h_nFatJets", 50, 0.0, 50);
-
-    h_Leading_Jet_eta = new TH1F("h_Leading_Jet_eta","h_Leading_Jet_eta", 200, -5.0, 5.0);
-    h_Leading_Jet_mass = new TH1F("h_Leading_Jet_mass","h_Leading_Jet_mass", 200, 0, 200);
-    h_Leading_Jet_phi = new TH1F("h_Leading_Jet_phi","h_Leading_Jet_phi", 200, -3.5, 3.5);
-    h_Leading_Jet_pt = new TH1F("h_Leading_Jet_pt","h_Leading_Jet_pt", 100, 0, 2000);
-
-    h_Trailing_Jet_eta = new TH1F("h_Trailing_Jet_eta","h_Trailing_Jet_eta", 200, -5.0, 5.0);
-    h_Trailing_Jet_mass = new TH1F("h_Trailing_Jet_mass","h_Trailing_Jet_mass", 200, 0, 200);
-    h_Trailing_Jet_phi = new TH1F("h_Trailing_Jet_phi","h_Trailing_Jet_phi", 200, -3.5, 3.5);
-    h_Trailing_Jet_pt = new TH1F("h_Trailing_Jet_pt","h_Trailing_Jet_pt", 100, 0, 2000);
-
-    h_Jet_invariantMass = new TH1F("h_Jet_invariantMass","h_Jet_invariantMass", 100, 0, 2000);
-    h_Jet_etaSeparation = new TH1F("h_Jet_etaSeparation","h_Jet_etaSeparation", 100, 0, 10);
+        h_Jet_eta[i] = new TH1F(("h_Jet_eta_"+to_string(i)).c_str(), ("h_Jet_eta_"+to_string(i)).c_str(), 200, -5.0, 5.0);
+        h_Jet_mass[i] = new TH1F(("h_Jet_mass_"+to_string(i)).c_str(), ("h_Jet_mass_"+to_string(i)).c_str(), 200, 0, 200);
+        h_Jet_phi[i] = new TH1F(("h_Jet_phi_"+to_string(i)).c_str(), ("h_Jet_phi_"+to_string(i)).c_str(), 200, -3.5, 3.5);
+        h_Jet_pt[i] = new TH1F(("h_Jet_pt_"+to_string(i)).c_str(), ("h_Jet_pt_"+to_string(i)).c_str(), 200, 0, 200);
+    }
     
 }
 
@@ -1245,30 +1176,10 @@ void SaveHistograms(){
     DrawPlot(h_Jet_mass,"h_Jet_mass");
     DrawPlot(h_Jet_phi,"h_Jet_phi");
     DrawPlot(h_Jet_pt,"h_Jet_pt");
-    DrawPlot(h_nJets,"h_nJets");
-
-    DrawPlot(h_fatJet_eta,"h_fatJet_eta");
-    DrawPlot(h_fatJet_mass,"h_fatJet_mass");
-    DrawPlot(h_fatJet_phi,"h_fatJet_phi");
-    DrawPlot(h_fatJet_pt,"h_fatJet_pt");
-    DrawPlot(h_nFatJets,"h_nFatJets");
-
-    DrawPlot(h_Leading_Jet_eta,"h_Leading_Jet_eta");
-    DrawPlot(h_Leading_Jet_mass,"h_Leading_Jet_mass");
-    DrawPlot(h_Leading_Jet_phi,"h_Leading_Jet_phi");
-    DrawPlot(h_Leading_Jet_pt,"h_Leading_Jet_pt");
-
-    DrawPlot(h_Trailing_Jet_eta,"h_Trailing_Jet_eta");
-    DrawPlot(h_Trailing_Jet_mass,"h_Trailing_Jet_mass");
-    DrawPlot(h_Trailing_Jet_phi,"h_Trailing_Jet_phi");
-    DrawPlot(h_Trailing_Jet_pt,"h_Trailing_Jet_pt");
-
-    DrawPlot(h_Jet_invariantMass,"h_Jet_invariantMass");    
-    DrawPlot(h_Jet_etaSeparation,"h_Jet_etaSeparation");
  
 }
 
-void InitTree(TString infileName,float weight=1){
+void InitTree(TString infileName, int sampleIdx){
 
     cout<<cur_time()<<"\tProcessing Tree...\n";
     TFile* infile = new TFile(infileName);
@@ -2251,33 +2162,37 @@ void InitTree(TString infileName,float weight=1){
 
     cout<<cur_time()<<"\tTree successfully processed!\n";
 
-    EventLoop();
+    EventLoop(sampleIdx);
     infile->Close();
     //score_infile->Close();
 
     return;
 }
 
-void ttHTobb(){
-//main program
+void RunAnalysis(){
 
-    string inputFile = "root://eoscms.cern.ch://eos/cms/store/user/lzygala/HVV/ttHTobb/4A5BE1BE-DA13-E811-BEB0-AC1F6B1AEFFC.root";
-
-    InitHistograms();
-    //InitTree(inputFile.c_str()); 
-
-    const char* inDir[3];
+   const char* inDir[3];
    char* dir_xroot[3];
    char* dir[3];
    void* dirp[3];
 
-   inDir[0] = "/eos/cms/store/user/lzygala/HVV/NanoAOD/pp_hw+w-jj_SMNP0_EFT_VBFCut/chw_0.5000000";
-   dir_xroot[0] = "root://eoscms.cern.ch///eos/cms/store/user/lzygala/HVV/NanoAOD/pp_hw+w-jj_SMNP0_EFT_VBFCut/chw_0.5000000";
+   inDir[0] = "/eos/cms/store/group/dpg_ecal/alca_ecalcalib/Clustering/lzygala/GJets_sample_Pt-20to40_OptPFRHT_OptMustLocalParams";
+   dir_xroot[0] = "root://eoscms.cern.ch///eos/cms/store/group/dpg_ecal/alca_ecalcalib/Clustering/lzygala/GJets_sample_Pt-20to40_OptPFRHT_OptMustLocalParams";
+   inDir[1] = "/eos/cms/store/group/dpg_ecal/alca_ecalcalib/Clustering/lzygala/GJets_sample_Pt-20toInf_OptPFRHT_OptMustLocalParams";
+   dir_xroot[1] = "root://eoscms.cern.ch///eos/cms/store/group/dpg_ecal/alca_ecalcalib/Clustering/lzygala/GJets_sample_Pt-20toInf_OptPFRHT_OptMustLocalParams";
+   inDir[2] = "/eos/cms/store/group/dpg_ecal/alca_ecalcalib/Clustering/lzygala/GJets_sample_Pt-40toInf_OptPFRHT_OptMustLocalParams";
+   dir_xroot[2] = "root://eoscms.cern.ch///eos/cms/store/group/dpg_ecal/alca_ecalcalib/Clustering/lzygala/GJets_sample_Pt-40toInf_OptPFRHT_OptMustLocalParams";
    
 
-    for(int j=0; j<1; j++){
+    for(int j=0; j<nSamples; j++){
 
+        //if points to single file
+        if(0 == sampleAddresses.at(j).compare(sampleAddresses.at(j).length() - 5, 5, ".root")){
+            InitTree(sampleAddresses.at(j), j);
+        }
 
+        //else points to directory
+        else{
             dir[j] = gSystem->ExpandPathName(inDir[j]);
             dirp[j] = gSystem->OpenDirectory(dir[j]);
 
@@ -2297,13 +2212,26 @@ void ttHTobb(){
             for (Int_t i = 0; i < n; i++){ //n
                 //Printf("\tfile -> %s", filename[i]);
                 Printf("\n%s\tfile -> %i / %i", (cur_time()).c_str(), i, n);
-                InitTree(filename[i]);
+                InitTree(filename[i],weights[j]);
                 //EventLoop();
             }
 
-        
+        }
 
     }
+}
 
+void fullAnalyzer(string signalFile, string signalName, string backgroundFiles[], string backgroundNames[]){
+//main program
+    nSamples = 1 + sizeof(backgroundFiles);
+    sampleAddresses.push_back(signalFile);
+    sampleNames.push_back(signalName);
+
+    copy(&backgroundFiles[0], &backgroundFiles[sizeof(backgroundFiles)], back_inserter(sampleAddresses));
+    copy(&backgroundNames[0], &backgroundNames[sizeof(backgroundNames)], back_inserter(sampleNames));
+
+
+    InitHistograms();
+    InitTree(inputFile.c_str()); 
     SaveHistograms();
 }
