@@ -605,7 +605,7 @@ void EventLoop_background(TString infileName, string year, float xsec, float sum
     //TTreeReaderValue<Float_t> PuppiMET_sumEt(myReader, "PuppiMET_sumEt");
     //TTreeReaderValue<Bool_t> HLT_Ele25_eta2p1_WPTight_Gsf(myReader, "HLT_Ele25_eta2p1_WPTight_Gsf");
     //TTreeReaderValue<Bool_t> HLT_IsoTkMu24(myReader, "HLT_IsoTkMu24");
-    
+
     TTreeReaderValue<Bool_t> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ(myReader, "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ");
     TTreeReaderValue<Bool_t> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL(myReader, "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL");
     TTreeReaderValue<Bool_t> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ(myReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ");
@@ -941,6 +941,9 @@ void EventLoop_background(TString infileName, string year, float xsec, float sum
                pass_jet = true;
            }
 
+        //Must pass at least 1
+        if(!pass_muonEG && !pass_doubleMuon && !pass_doubleEle && !pass_singleMuon && !pass_singleEle && !pass_jet && !pass_hbb)
+            continue;
         
 
         if(*Flag_goodVertices
