@@ -603,10 +603,60 @@ void EventLoop_background(TString infileName, string year, float xsec, float sum
     //TTreeReaderValue<Float_t> MET_eta(myReader, "MET_eta");
     TTreeReaderValue<Float_t> MET_sumEt(myReader, "MET_sumEt");
     //TTreeReaderValue<Float_t> PuppiMET_sumEt(myReader, "PuppiMET_sumEt");
-    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL(myReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL");
-    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ(myReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ");
     //TTreeReaderValue<Bool_t> HLT_Ele25_eta2p1_WPTight_Gsf(myReader, "HLT_Ele25_eta2p1_WPTight_Gsf");
     //TTreeReaderValue<Bool_t> HLT_IsoTkMu24(myReader, "HLT_IsoTkMu24");
+    
+    TTreeReaderValue<Bool_t> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ(myReader, "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ");
+    TTreeReaderValue<Bool_t> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL(myReader, "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL");
+    TTreeReaderValue<Bool_t> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ(myReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ");
+    TTreeReaderValue<Bool_t> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL(myReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL");
+    TTreeReaderValue<Bool_t> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ(myReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ");
+    TTreeReaderValue<Bool_t> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL(myReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL");
+
+    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8(myReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8");
+    TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8(myReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8");
+    TTreeReaderValue<Bool_t> HLT_Mu19_TrkIsoVVL_Mu9_TrkIsoVVL_DZ_Mass3p8(myReader, "HLT_Mu19_TrkIsoVVL_Mu9_TrkIsoVVL_DZ_Mass3p8");
+    TTreeReaderValue<Bool_t> HLT_Mu19_TrkIsoVVL_Mu9_TrkIsoVVL_DZ_Mass8(myReader, "HLT_Mu19_TrkIsoVVL_Mu9_TrkIsoVVL_DZ_Mass8");
+
+    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ(myReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ");
+    TTreeReaderValue<Bool_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL(myReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL");
+    TTreeReaderValue<Bool_t> HLT_DiEle27_WPTightCaloOnly_L1DoubleEG(myReader, "HLT_DiEle27_WPTightCaloOnly_L1DoubleEG");
+    TTreeReaderValue<Bool_t> HLT_DoubleEle33_CaloIdL_MW(myReader, "HLT_DoubleEle33_CaloIdL_MW");
+    TTreeReaderValue<Bool_t> HLT_DoubleEle25_CaloIdL_MW(myReader, "HLT_DoubleEle25_CaloIdL_MW");
+    TTreeReaderValue<Bool_t> HLT_DoubleEle27_CaloIdL_MW(myReader, "HLT_DoubleEle27_CaloIdL_MW");
+    TTreeReaderValue<Bool_t> HLT_DoublePhoton70(myReader, "HLT_DoublePhoton70");
+
+    TTreeReaderValue<Bool_t> HLT_IsoMu24(myReader, "HLT_IsoMu24");
+    TTreeReaderValue<Bool_t> HLT_IsoMu27(myReader, "HLT_IsoMu27");
+    TTreeReaderValue<Bool_t> HLT_IsoMu30(myReader, "HLT_IsoMu30");
+    TTreeReaderValue<Bool_t> HLT_Mu50(myReader, "HLT_Mu50");
+
+    TTreeReaderValue<Bool_t> HLT_Ele115_CaloIdVT_GsfTrkIdT(myReader, "HLT_Ele115_CaloIdVT_GsfTrkIdT");
+    TTreeReaderValue<Bool_t> HLT_Ele27_WPTight_Gsf(myReader, "HLT_Ele27_WPTight_Gsf");
+    TTreeReaderValue<Bool_t> HLT_Ele28_WPTight_Gsf(myReader, "HLT_Ele28_WPTight_Gsf");
+    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf(myReader, "HLT_Ele32_WPTight_Gsf");
+    TTreeReaderValue<Bool_t> HLT_Ele35_WPTight_Gsf(myReader, "HLT_Ele35_WPTight_Gsf");
+    TTreeReaderValue<Bool_t> HLT_Ele38_WPTight_Gsf(myReader, "HLT_Ele38_WPTight_Gsf");
+    TTreeReaderValue<Bool_t> HLT_Ele40_WPTight_Gsf(myReader, "HLT_Ele40_WPTight_Gsf");
+    TTreeReaderValue<Bool_t> HLT_Ele32_WPTight_Gsf_L1DoubleEG(myReader, "HLT_Ele32_WPTight_Gsf_L1DoubleEG");
+    TTreeReaderValue<Bool_t> HLT_Photon200(myReader, "HLT_Photon200");
+
+    TTreeReaderValue<Bool_t> HLT_AK8PFJet500(myReader, "HLT_AK8PFJet500");
+    TTreeReaderValue<Bool_t> HLT_AK8PFJet360_TrimMass30(myReader, "HLT_AK8PFJet360_TrimMass30");
+    TTreeReaderValue<Bool_t> HLT_AK8PFJet380_TrimMass30(myReader, "HLT_AK8PFJet380_TrimMass30");
+    TTreeReaderValue<Bool_t> HLT_AK8PFJet400_TrimMass30(myReader, "HLT_AK8PFJet400_TrimMass30");
+    TTreeReaderValue<Bool_t> HLT_AK8PFJet420_TrimMass30(myReader, "HLT_AK8PFJet420_TrimMass30");
+    TTreeReaderValue<Bool_t> HLT_AK8PFHT750_TrimMass50(myReader, "HLT_AK8PFHT750_TrimMass50");
+    TTreeReaderValue<Bool_t> HLT_AK8PFHT800_TrimMass50(myReader, "HLT_AK8PFHT800_TrimMass50");
+    TTreeReaderValue<Bool_t> HLT_AK8PFHT850_TrimMass50(myReader, "HLT_AK8PFHT850_TrimMass50");
+    TTreeReaderValue<Bool_t> HLT_AK8PFHT900_TrimMass50(myReader, "HLT_AK8PFHT900_TrimMass50");
+    TTreeReaderValue<Bool_t> HLT_PFHT1050(myReader, "HLT_PFHT1050");
+
+    TTreeReaderValue<Bool_t> HLT_AK8PFJet330_TrimMass30_PFAK8BoostedDoubleB_np2(myReader, "HLT_AK8PFJet330_TrimMass30_PFAK8BoostedDoubleB_np2");
+    TTreeReaderValue<Bool_t> HLT_AK8PFJet330_TrimMass30_PFAK8BoostedDoubleB_np4(myReader, "HLT_AK8PFJet330_TrimMass30_PFAK8BoostedDoubleB_np4");
+    TTreeReaderValue<Bool_t> HLT_AK8PFJet330_TrimMass30_PFAK8BoostedDoubleB_p02(myReader, "HLT_AK8PFJet330_TrimMass30_PFAK8BoostedDoubleB_p02");
+
+
     
     
     
