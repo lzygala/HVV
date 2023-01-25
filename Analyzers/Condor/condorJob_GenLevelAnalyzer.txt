@@ -1,0 +1,8 @@
+executable              = run_script_GenLevelAnalyzer_TTreeMaker.sh
+output                  = output/strips.$(ClusterId).$(ProcId).out
+error                   = error/strips.$(ClusterId).$(ProcId).err
+log                     = log/strips.$(ClusterId).log
+transfer_input_files    = run_script_GenLevelAnalyzer_TTreeMaker.sh, ../GenLevelAnalyzer_TTreeMaker.C
+
++JobFlavour             = "longlunch"
+queue arguments from arguments_GenLevelAnalyzer_TTreeMaker.txt
