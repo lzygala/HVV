@@ -150,6 +150,7 @@ using namespace std;
     Int_t EventType_Leptonic = -1.0;
     Int_t EventType_SemiLeptonic = -1.0;
     Float_t Xsec_genWeight = -1.0;
+    Float_t EventScale = -1.0;
     Float_t XS = -1.0;
     Float_t SumWeights = -1.0;
     Char_t Sample_name[30];
@@ -277,6 +278,7 @@ void AddBranches(){
     Events_basic->Branch("EventType_Leptonic", &EventType_Leptonic, "EventType_Leptonic/I");
     Events_basic->Branch("EventType_SemiLeptonic", &EventType_SemiLeptonic, "EventType_SemiLeptonic/I");
     Events_basic->Branch("Xsec_genWeight", &Xsec_genWeight, "Xsec_genWeight/F");
+    Events_basic->Branch("EventScale", &EventScale, "EventScale/F");
     Events_basic->Branch("XS", &XS, "XS/F");
     Events_basic->Branch("SumWeights", &SumWeights, "SumWeights/F");
     Events_basic->Branch("Sample_name", &Sample_name, "Sample_name/C");
@@ -680,7 +682,8 @@ void EventLoop_background(TString infileName, string year, float xsec, float sum
         //if(iev>5) break;
         float eventScale = *genWeight;
 
-        Xsec_genWeight = 1000.0 * lumi * xsec / sum_weights;
+        Xsec_genWeight = (*genWeight) * 1000.0 * lumi * xsec / sum_weights;
+        EventScale = 1000.0 * lumi * xsec / sum_weights;
 
         RawEventNumber_TotalEvents++;
         WeightedEventNumber_TotalEvents+=eventScale;
